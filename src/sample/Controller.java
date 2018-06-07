@@ -27,22 +27,22 @@ public class Controller {
 
     // Включаем/Отключаем доступность поля constValue
     public void chooseConstType(ActionEvent actionEvent) {
+        rbConstType.setUserData("Константа");
         txtConstValue.setDisable(false);
     }
 
     public void chooseDecType(ActionEvent actionEvent) {
+        rbDecType.setUserData("Убывающая");
         txtConstValue.setDisable(true);
     }
 
     public void chooseIncType(ActionEvent actionEvent) {
+        rbIncType.setUserData("Возрастающая");
         txtConstValue.setDisable(true);
     }
 
     //Генерация файлов для сортировка
     public void btnGenerateFiles(ActionEvent actionEvent) {
-        rbDecType.setUserData("Убывающая");
-        rbIncType.setUserData("Возрастающая");
-        rbConstType.setUserData("Константа");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Информация");
         alert.setHeaderText("Ваш выбор");
