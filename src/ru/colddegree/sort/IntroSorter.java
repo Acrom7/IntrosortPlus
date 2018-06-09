@@ -4,11 +4,6 @@ public class IntroSorter extends QuickSorter {
     private Sorter heapSorter = new HeapSorter();
 
     @Override
-    public void sort(int[] array, int from, int to) {
-        super.sort(array, from, to);
-    }
-
-    @Override
     protected void quicksort(int from, int to) {
         final int maxDepth = log2nlz(array.length) * 2;
         introsort(from, to, maxDepth);
