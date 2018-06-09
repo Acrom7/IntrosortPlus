@@ -1,89 +1,58 @@
 package ru.colddegree;
 
+import ru.colddegree.gen.NumberGenerator;
 import ru.colddegree.gen.SequenceGenerator;
-import ru.colddegree.gen.SequenceGeneratorImpl;
-import ru.colddegree.gen.SequenceInFileGenerator;
+import ru.colddegree.gen.SequentialNumberGenerator;
+import ru.colddegree.sort.IntroSorter;
+import ru.colddegree.sort.Sorter;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Sandbox {
+    private static final String FILE_PATH = "resources/sequence.txt";
+
     public static void main(String[] args) {
-//        generateAndWriteToFile();
-        generateDirectlyInFile();
-        readFromFileAndPrint();
+
+        generateSequenceToFile(FILE_PATH);
+        int[] seq = getSequenceFromFile(FILE_PATH);
+
+        System.out.println( "Initial sequence: " + Arrays.toString(seq) );
+
+        Sorter sorter = new IntroSorter();
+        sorter.sort(seq);
+
+        System.out.println( "Sorted sequence:  " + Arrays.toString(seq) );
+
+        System.out.println( "Comparisons: " + sorter.getComparisons() );
+        System.out.println( "Exchanges: " + sorter.getExchanges() );
     }
 
-    public static void generateDirectlyInFile() {
-        Path filepath = null;
+    private static void generateSequenceToFile(String filepath) {
+        NumberGenerator numGen = new SequentialNumberGenerator(50, -1);
 
-        try {
-            filepath = Paths.get("resources/input.txt");
-        } catch (InvalidPathException e) {
-            e.printStackTrace();
-            return;
-        }
+        SequenceGenerator seqGen = new SequenceGenerator(numGen, 50);
 
-
-        try (BufferedWriter writer = Files.newBufferedWriter(filepath, StandardOpenOption.CREATE)) {
-
-            SequenceInFileGenerator gen = new SequenceInFileGenerator(50, 7, 8);
-            gen.generateInFile(writer);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        seqGen.generateFile(filepath);
     }
 
-    public static void generateAndWriteToFile() {
-        Path filepath = null;
+    private static int[] getSequenceFromFile(String filepath) {
+        int[] seq = null;
 
-        try {
-            filepath = Paths.get("resources/input.txt");
-        } catch (InvalidPathException e) {
-            e.printStackTrace();
-            return;
-        }
+        try (Scanner scanner = new Scanner( new File(filepath) )) {
 
-        SequenceGenerator gen = new SequenceGeneratorImpl(20, 0, 5);
-        int[] seq = gen.generate();
+            seq = new int[scanner.nextInt()];
 
-        try (BufferedWriter writer = Files.newBufferedWriter(filepath, StandardOpenOption.CREATE)) {
-
-            writer.write( Integer.toString(seq.length) );
-            writer.newLine();
-
-            for (int num : seq) {
-                writer.write( Integer.toString(num) );
-                writer.write(' ');
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void readFromFileAndPrint() {
-        File inputFile = new File("resources/input.txt");
-
-        int[] arr = null;
-
-        try (Scanner scanner = new Scanner(inputFile)) {
-
-            arr = new int[scanner.nextInt()];
-
-            for (int i = 0; i < arr.length; i++) {
-                arr[i] = scanner.nextInt();
+            for (int i = 0; i < seq.length; i++) {
+                seq[i] = scanner.nextInt();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println( Arrays.toString(arr) );
+        return seq;
     }
+
 }
