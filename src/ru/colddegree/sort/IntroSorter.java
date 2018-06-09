@@ -24,7 +24,6 @@ public class IntroSorter extends QuickSorter {
                 introsort(low, mid - 1, maxDepth - 1);
                 introsort(mid + 1, high, maxDepth - 1);
             }
-
         }
     }
 
