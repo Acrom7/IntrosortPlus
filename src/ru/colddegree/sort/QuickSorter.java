@@ -1,5 +1,8 @@
 package ru.colddegree.sort;
 
+/**
+ * Сортировщик, использующий алгоритм быстрой сортировки
+ */
 public class QuickSorter extends SorterBase {
     @Override
     public void sort(int[] array, int from, int to) {

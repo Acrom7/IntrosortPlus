@@ -1,5 +1,8 @@
 package ru.colddegree.sort;
 
+/**
+ * Сортировщик, использующий алгоритм интроспективной сортировки
+ */
 public class IntroSorter extends QuickSorter {
     private Sorter heapSorter = new HeapSorter();
 

@@ -1,5 +1,8 @@
 package ru.colddegree.sort;
 
+/**
+ * Пример использования сортировщика
+ */
 public class SorterDemo {
     public static void main(String[] args) {
         Sorter sorter = new IntroSorter();

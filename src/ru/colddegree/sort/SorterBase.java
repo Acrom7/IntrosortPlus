@@ -1,5 +1,8 @@
 package ru.colddegree.sort;
 
+/**
+ * Базовый класс сортировщика
+ */
 public abstract class SorterBase implements Sorter {
     protected int[] array;
 

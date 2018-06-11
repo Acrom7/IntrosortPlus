@@ -1,5 +1,8 @@
 package ru.colddegree.sort;
 
+/**
+ * Сортировщик, использующий алгоритм пирамидальной сортировки
+ */
 public class HeapSorter extends SorterBase {
     private int heapSize;
 

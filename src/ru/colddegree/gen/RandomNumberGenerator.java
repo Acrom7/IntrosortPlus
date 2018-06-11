@@ -2,6 +2,9 @@ package ru.colddegree.gen;
 
 import java.util.Random;
 
+/**
+ * Генератор случайных чисел
+ */
 public class RandomNumberGenerator implements NumberGenerator {
     private int from;
     private int to;

@@ -1,15 +1,29 @@
 package ru.colddegree.gen;
 
+/**
+ * Генератор чисел последовательности "убийцы" медианы трёх
+ */
 public class MedianOf3KillerNumberGenerator implements NumberGenerator {
     private int sequenceLength;
     private int index = 0;
     private int half;
 
+    /**
+     * Конструктор
+     *
+     * @param sequenceLength длина генерируемой последовательности
+     */
     public MedianOf3KillerNumberGenerator(int sequenceLength) {
         this.sequenceLength = sequenceLength;
         half = sequenceLength / 2;
     }
 
+    /**
+     * Генерирует число
+     * Можно вызывать этот метод не более sequenceLength раз
+     *
+     * @return число
+     */
     @Override
     public int generateNumber() {
         if (index >= sequenceLength)
