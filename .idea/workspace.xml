@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Группа для RadBtn, Отдельное окно для графиков">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -75,7 +70,7 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
+            <state relative-caret-position="227">
               <caret line="98" column="39" lean-forward="true" selection-start-line="98" selection-start-column="39" selection-end-line="98" selection-end-column="39" />
               <folding>
                 <element signature="method#chooseAPSeq#0;class#Controller#0" />
@@ -358,7 +353,7 @@
       <workItem from="1528161972717" duration="2820000" />
       <workItem from="1528376049977" duration="1145000" />
       <workItem from="1528781099553" duration="4680000" />
-      <workItem from="1528787986300" duration="4799000" />
+      <workItem from="1528787986300" duration="4991000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил выбор файлов, и якоря (хз зачем)">
       <created>1528111080222</created>
@@ -374,11 +369,18 @@
       <option name="project" value="LOCAL" />
       <updated>1528116200902</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Рабочий FileChooser (только *.seq, в папке resources/seq)">
+      <created>1528792918203</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1528792918203</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29184000" />
+    <option name="totallyTimeSpent" value="29376000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1366" height="741" extended-state="6" />
@@ -390,7 +392,7 @@
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2511774" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2511774" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3291536" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Designer" order="2" />
@@ -458,7 +460,8 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Добавил выбор файлов, и якоря (хз зачем)" />
     <MESSAGE value="Группа для RadBtn, Отдельное окно для графиков" />
-    <option name="LAST_COMMIT_MESSAGE" value="Группа для RadBtn, Отдельное окно для графиков" />
+    <MESSAGE value="Рабочий FileChooser (только *.seq, в папке resources/seq)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Рабочий FileChooser (только *.seq, в папке resources/seq)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -628,7 +631,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
+        <state relative-caret-position="227">
           <caret line="98" column="39" lean-forward="true" selection-start-line="98" selection-start-column="39" selection-end-line="98" selection-end-column="39" />
           <folding>
             <element signature="method#chooseAPSeq#0;class#Controller#0" />
