@@ -14,12 +14,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
+import ru.colddegree.gen.*;
+import ru.colddegree.sort.*;
 
 public class Controller {
 
-    public Button btnSort;
     //Группа для выбора типа файлов
     @FXML private ToggleGroup kindOfFiles;
     @FXML private RadioButton rbRandomSeq;
@@ -27,10 +30,11 @@ public class Controller {
     @FXML private RadioButton rbKillerSeq;
 
     //Текстовые поля вкладки "Генерация"
-    @FXML private TextField txtFirstValue;
-    @FXML private TextField txtStepSeq;
-    @FXML private TextField txtNumOfFiles;
-    @FXML private TextField txtNumOfElem;
+    public TextField txtFirstValueRand;
+    public TextField txtLastValueRand;
+    public TextField txtFirstValueAP;
+    public TextField txtStepAP;
+    public TextField txtNumOfElem;
 
     //Таблица файлов
     @FXML private TableColumn<MyFile, String> fileName;
@@ -43,35 +47,72 @@ public class Controller {
     @FXML private BarChart bcComparisons;
     @FXML private BarChart bcExchanges;
 
-    // Включаем/Отключаем доступность полей txtFirstValue && txtStepSeq
-    public void chooseAPSeq(ActionEvent actionEvent) {
-        txtFirstValue.setDisable(false);
-        txtStepSeq.setDisable(false);
-    }
-    public void chooseRandomSeq(ActionEvent actionEvent) {
-        txtFirstValue.setDisable(true);
-        txtStepSeq.setDisable(true);
-    }
-    public void chooseKillerSeq(ActionEvent actionEvent) {
-        txtFirstValue.setDisable(true);
-        txtStepSeq.setDisable(true);
-    }
 
     //Генерация файлов для сортировка
-    public void btnGenerateFiles(ActionEvent actionEvent) {
+    public void generateFiles(ActionEvent actionEvent) {
         rbAPSeq.setUserData("APSeq");
         rbKillerSeq.setUserData("KillerSeq");
         rbRandomSeq.setUserData("RandomSeq");
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Информация");
-        alert.setHeaderText("Ваш выбор");
+        //Количество элементов
+        int numOfElem = Integer.parseInt(txtNumOfElem.getText());
 
-        String s;
-        s = "Тип: " + kindOfFiles.getSelectedToggle().getUserData().toString() + '\n' ;
-        s += "Количество: " + txtNumOfFiles.getText();
-        alert.setContentText(s);
-        alert.show();
+        //Выбор типа генератора
+        SequenceGenerator sequenceGenerator;
+        String nameOfFile = "";
+        switch (kindOfFiles.getSelectedToggle().getUserData().toString()) {
+            case "APSeq":
+                int initialValue = Integer.parseInt(txtFirstValueAP.getText());
+                int step = Integer.parseInt(txtStepAP.getText());
+                nameOfFile = "APSeq" + initialValue + '_' + step + '_' + numOfElem;
+                sequenceGenerator = new SequenceGenerator(new SequentialNumberGenerator(initialValue, step), numOfElem);
+                break;
+            case "KillerSeq":
+                nameOfFile = "KillerSeq" + '_' + numOfElem;
+                sequenceGenerator = new SequenceGenerator(new MedianOf3KillerNumberGenerator(numOfElem), numOfElem);
+                break;
+            case "RandomSeq":
+                int from = Integer.parseInt(txtFirstValueRand.getText());
+                int to = Integer.parseInt(txtLastValueRand.getText());
+                nameOfFile = "RandomSeq" + '_' + from + '_' + to + '_' + numOfElem;
+                sequenceGenerator = new SequenceGenerator(new RandomNumberGenerator(from, to), numOfElem);
+                break;
+            default:
+                sequenceGenerator = new SequenceGenerator(new MedianOf3KillerNumberGenerator(numOfElem), numOfElem);
+        }
+
+        //Генерация
+        nameOfFile = "resources/seq/" + nameOfFile + ".seq";
+        File file = new File(nameOfFile);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sequenceGenerator.generateFile(nameOfFile);
+
+        //Добавление в таблицу
+        addFile(new File(nameOfFile));
+    }
+
+    /**
+     * Добавляет file в массив сортируемых файлов
+     * и обновляет данные в таблице
+     * @param file
+     */
+    public void addFile(File file) {
+        for (int i = 0; i < myFiles.size(); i++) {
+            if (myFiles.get(i).getFile().toString() == file.toString()) {
+                myFiles.get(i).getCheckBox().setSelected(true);
+                return;
+            }
+        }
+        myFiles.add(new MyFile(file));
+        tvFiles.setItems(myFiles);
+        select.setStyle("-fx-alignment: BASELINE_CENTER;");
+        tvFiles.setItems(myFiles);
+        fileName.setCellValueFactory(new PropertyValueFactory<MyFile, String>("name"));
+        select.setCellValueFactory(new PropertyValueFactory<MyFile, CheckBox>("checkBox"));
     }
 
     //Добавление файлов для сортировки
@@ -84,33 +125,85 @@ public class Controller {
 
         if (files != null) {
             for (int i = 0; i < files.size(); i++) {
-                myFiles.add(new MyFile(files.get(i)));
+                addFile(files.get(i));
             }
-            select.setStyle("-fx-alignment: BASELINE_CENTER;");
-            tvFiles.setItems(myFiles);
-            fileName.setCellValueFactory(new PropertyValueFactory<MyFile, String>("name"));
-            select.setCellValueFactory(new PropertyValueFactory<MyFile, CheckBox>("checkBox"));
         }
     }
 
-   @FXML
-    public void testDrawChart() {
-        final String austria = "Austria";
-        final String brazil = "Brazil";
-        final String france = "France";
-        final String italy = "Italy";
-        final String usa = "USA";
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("2004");
-        series2.getData().add(new XYChart.Data(austria, 57401.85));
-        series2.getData().add(new XYChart.Data(brazil, 41941.19));
-        series2.getData().add(new XYChart.Data(france, 45263.37));
-        series2.getData().add(new XYChart.Data(italy, 117320.16));
-        series2.getData().add(new XYChart.Data(usa, 14845.27));
-        bcTime.getData().addAll(series2);
-    }
-
     public void sortFiles(ActionEvent actionEvent) {
+        bcTime.getData().clear();
+        bcExchanges.getData().clear();
+        bcComparisons.getData().clear();
 
+        XYChart.Series timeQuickSort = new XYChart.Series();
+        timeQuickSort.setName("QuickSort");
+        XYChart.Series timeIntroSort = new XYChart.Series();
+        timeIntroSort.setName("IntroSort");
+
+        XYChart.Series cmpQuickSort = new XYChart.Series();
+        cmpQuickSort.setName("QuickSort");
+        XYChart.Series cmpIntroSort = new XYChart.Series();
+        cmpIntroSort.setName("IntroSort");
+
+        XYChart.Series excQuickSort = new XYChart.Series();
+        excQuickSort.setName("QuickSort");
+        XYChart.Series excIntroSort = new XYChart.Series();
+        excIntroSort.setName("IntroSort");
+
+        for (int i = 0; i < myFiles.size(); i++) {
+            if (myFiles.get(i).getCheckBox().isSelected()) {
+                Sorter introSorter = new IntroSorter();
+                Sorter quickSorter = new QuickSorter();
+
+                int[] seq = getSequenceFromFile(myFiles.get(i).getFile());
+
+                long startTime = System.currentTimeMillis();
+                introSorter.sort(seq);
+                long endTime = System.currentTimeMillis();
+
+                //Добавляем данные в серию
+                timeIntroSort.getData().add(new XYChart.Data(myFiles.get(i).getName(),endTime - startTime));
+                cmpIntroSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), introSorter.getComparisons()));
+                excIntroSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), introSorter.getExchanges()));
+
+                startTime = System.currentTimeMillis();
+                quickSorter.sort(seq);
+                endTime = System.currentTimeMillis();
+
+                timeQuickSort.getData().add(new XYChart.Data(myFiles.get(i).getName(),endTime - startTime));
+                cmpQuickSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), quickSorter.getComparisons()));
+                excQuickSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), quickSorter.getExchanges()));
+            }
+        }
+
+        //Добавляем на график
+        bcTime.getData().addAll(timeIntroSort, timeQuickSort);
+        bcComparisons.getData().addAll(cmpIntroSort, cmpQuickSort);
+        bcExchanges.getData().addAll(excIntroSort, excQuickSort);
     }
+
+    /**
+     * Считывает последовательность чисел из файла filepath в массив и возвращает его
+     *
+     * @param filepath путь к файлу
+     * @return массив чисел из файла
+     */
+    private static int[] getSequenceFromFile(File filepath) {
+        int[] seq = null;
+
+        try (Scanner scanner = new Scanner( filepath )) {
+
+            seq = new int[scanner.nextInt()];
+
+            for (int i = 0; i < seq.length; i++) {
+                seq[i] = scanner.nextInt();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return seq;
+    }
+
 }

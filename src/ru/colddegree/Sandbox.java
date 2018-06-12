@@ -3,6 +3,7 @@ package ru.colddegree;
 import ru.colddegree.gen.NumberGenerator;
 import ru.colddegree.gen.RandomNumberGenerator;
 import ru.colddegree.gen.SequenceGenerator;
+import ru.colddegree.gen.SequentialNumberGenerator;
 import ru.colddegree.sort.IntroSorter;
 import ru.colddegree.sort.Sorter;
 
@@ -19,7 +20,8 @@ public class Sandbox {
     public static void main(String[] args) {
 
         generateSequenceToFile(FILE_PATH);
-        int[] seq = getSequenceFromFile(FILE_PATH);
+        int[] seq = {1,2,3};
+        //getSequenceFromFile(FILE_PATH);
 
         System.out.println( "Initial sequence: " + Arrays.toString(seq) );
 
@@ -60,28 +62,28 @@ public class Sandbox {
         seqGen.generateFile(filepath);
     }
 
-    /**
-     * Считывает последовательность чисел из файла filepath в массив и возвращает его
-     *
-     * @param filepath путь к файлу
-     * @return массив чисел из файла
-     */
-    private static int[] getSequenceFromFile(String filepath) {
-        int[] seq = null;
-
-        try (Scanner scanner = new Scanner( new File(filepath) )) {
-
-            seq = new int[scanner.nextInt()];
-
-            for (int i = 0; i < seq.length; i++) {
-                seq[i] = scanner.nextInt();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return seq;
-    }
+//    /**
+//     * Считывает последовательность чисел из файла filepath в массив и возвращает его
+//     *
+//     * @param filepath путь к файлу
+//     * @return массив чисел из файла
+//     */
+//    private static int[] getSequenceFromFile(String filepath) {
+//        int[] seq = null;
+//
+//        try (Scanner scanner = new Scanner( new File(filepath) )) {
+//
+//            seq = new int[scanner.nextInt()];
+//
+//            for (int i = 0; i < seq.length; i++) {
+//                seq[i] = scanner.nextInt();
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return seq;
+//    }
 
 }
