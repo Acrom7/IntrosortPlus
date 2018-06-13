@@ -2,7 +2,10 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 
@@ -17,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 import ru.colddegree.gen.*;
 import ru.colddegree.sort.*;
@@ -187,25 +191,74 @@ public class Controller {
                 Sorter introSorter = new IntroSorter();
                 Sorter quickSorter = new QuickSorter();
 
-                int[] seq = getSequenceFromFile(myFiles.get(i).getFile());
 
-                long startTime = System.currentTimeMillis();
-                introSorter.sort(seq);
-                long endTime = System.currentTimeMillis();
 
-                //Добавляем данные в серию
-                timeIntroSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), endTime - startTime));
-                cmpIntroSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), introSorter.getComparisons()));
-                excIntroSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), introSorter.getExchanges()));
+                final int idx = i;
 
-                startTime = System.currentTimeMillis();
-                quickSorter.sort(seq);
-                endTime = System.currentTimeMillis();
 
-                timeQuickSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), endTime - startTime));
-                cmpQuickSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), quickSorter.getComparisons()));
-                excQuickSort.getData().add(new XYChart.Data(myFiles.get(i).getName(), quickSorter.getExchanges()));
+                Task introsortTask = new Task<Long>() {
+                    @Override
+                    protected Long call() throws Exception {
+                        int[] seq = getSequenceFromFile(myFiles.get(idx).getFile());
 
+                        long startTime = System.currentTimeMillis();
+                        introSorter.sort(seq);
+                        long endTime = System.currentTimeMillis();
+
+                        return endTime - startTime;
+                    }
+                };
+
+                introsortTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        //Добавляем данные в серию
+                        try {
+                            timeIntroSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), introsortTask.get()));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        cmpIntroSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), introSorter.getComparisons()));
+                        excIntroSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), introSorter.getExchanges()));
+                    }
+                });
+                Thread t1 = new Thread(introsortTask);
+                t1.start();
+
+
+
+
+                Task quicksortTask = new Task<Long>() {
+                    @Override
+                    protected Long call() throws Exception {
+                        int[] seq = getSequenceFromFile(myFiles.get(idx).getFile());
+
+                        long startTime = System.currentTimeMillis();
+                        quickSorter.sort(seq);
+                        long endTime = System.currentTimeMillis();
+
+                        return endTime - startTime;
+                    }
+                };
+
+                quicksortTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        try {
+                            timeQuickSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), quicksortTask.get()));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        cmpQuickSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), quickSorter.getComparisons()));
+                        excQuickSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), quickSorter.getExchanges()));
+                    }
+                });
+                Thread t2 = new Thread(quicksortTask);
+                t2.start();
 
             }
         }
