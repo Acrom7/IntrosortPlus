@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
@@ -12,26 +13,32 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<TabPane minHeight="400.0" minWidth="636.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="400.0" tabMaxWidth="636.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane fx:id="tpMainWindows" minHeight="400.0" minWidth="636.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="400.0" tabMaxWidth="636.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
       <Tab text="Генерация">
       <content>
           <AnchorPane>
               <children>
-                  <AnchorPane layoutX="29.0" layoutY="22.0" prefHeight="365.0" prefWidth="627.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                      <children>
-                          <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                              <children>
-                                  <AnchorPane prefHeight="290.0" prefWidth="627.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <children>
-                                          <Text layoutX="10.0" layoutY="23.92333984375" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип генерируемых файлов">
-                                              <font>
-                                                  <Font size="15.0" />
-                                              </font>
-                                              <VBox.margin>
-                                                  <Insets bottom="10.0" />
-                                              </VBox.margin>
-                                          </Text>
+                    <Button layoutX="110.0" layoutY="326.0" mnemonicParsing="false" onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="100.0">
+                        <padding>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        </padding>
+                    </Button>
+                  <Button layoutX="431.0" layoutY="326.0" mnemonicParsing="false" onAction="#sortFiles" prefHeight="25.0" prefWidth="100.0" text="Сортировка" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="100.0" />
+                    <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                            <AnchorPane prefHeight="290.0" prefWidth="627.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <children>
+                                    <Text layoutX="21.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип генерируемых файлов">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                        <VBox.margin>
+                                            <Insets bottom="10.0" />
+                                        </VBox.margin>
+                                    </Text>
+                              <Group layoutX="6.0" layoutY="19.0">
+                                 <children>
                                     <Group layoutX="1.0" layoutY="-68.0">
                                        <children>
                                           <GridPane alignment="CENTER" layoutX="15.0" layoutY="124.0" prefHeight="34.0" prefWidth="223.0">
@@ -52,12 +59,12 @@
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </GridPane.margin>
                                                 </Text>
-                                                <TextField fx:id="txtFirstValueRand" maxWidth="150.0" promptText="1" GridPane.columnIndex="1">
+                                                <TextField fx:id="txtFirstValueRand" promptText="1" GridPane.columnIndex="1">
                                                    <GridPane.margin>
                                                       <Insets />
                                                    </GridPane.margin>
                                                 </TextField>
-                                                <TextField fx:id="txtLastValueRand" maxWidth="150.0" prefHeight="25.0" prefWidth="207.0" promptText="10" GridPane.columnIndex="3">
+                                                <TextField fx:id="txtLastValueRand" prefHeight="23.0" prefWidth="74.0" promptText="10" GridPane.columnIndex="3">
                                                    <GridPane.margin>
                                                       <Insets />
                                                    </GridPane.margin>
@@ -66,8 +73,8 @@
                                              <columnConstraints>
                                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="62.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="63.0" />
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="63.0" />
-                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="63.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="43.0" />
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="65.0" />
                                              </columnConstraints>
                                              <rowConstraints>
                                                 <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
@@ -83,7 +90,7 @@
                                                 </RadioButton>
                                        </children>
                                     </Group>
-                                    <Group layoutX="-1.0" layoutY="-51.0">
+                                    <Group layoutX="1.0" layoutY="-51.0">
                                        <children>
                                                 <RadioButton fx:id="rbAPSeq" layoutX="14.0" layoutY="147.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="229.0" selected="true" text="Арифметическая прогрессия" toggleGroup="$kindOfFiles" wrapText="true" />
                                           <GridPane alignment="CENTER" layoutX="15.0" layoutY="171.0" prefHeight="34.0" prefWidth="223.0">
@@ -104,12 +111,12 @@
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </GridPane.margin>
                                                 </Text>
-                                                <TextField fx:id="txtFirstValueAP" maxWidth="150.0" promptText="1" GridPane.columnIndex="1">
+                                                <TextField fx:id="txtFirstValueAP" promptText="1" GridPane.columnIndex="1">
                                                    <GridPane.margin>
                                                       <Insets />
                                                    </GridPane.margin>
                                                 </TextField>
-                                                <TextField fx:id="txtStepAP" maxWidth="150.0" prefHeight="25.0" prefWidth="207.0" promptText="10" GridPane.columnIndex="3">
+                                                <TextField fx:id="txtStepAP" promptText="10" GridPane.columnIndex="3">
                                                    <GridPane.margin>
                                                       <Insets />
                                                    </GridPane.margin>
@@ -118,8 +125,8 @@
                                              <columnConstraints>
                                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="62.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="63.0" />
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="63.0" />
-                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="63.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="47.0" />
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="65.0" />
                                              </columnConstraints>
                                              <rowConstraints>
                                                 <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
@@ -127,35 +134,30 @@
                                           </GridPane>
                                        </children>
                                     </Group>
-                                          <RadioButton fx:id="rbKillerSeq" layoutX="14.0" layoutY="167.0" mnemonicParsing="false" text="Сортировка &quot;УБИЦА&quot;" toggleGroup="$kindOfFiles">
+                                          <RadioButton fx:id="rbKillerSeq" layoutX="16.0" layoutY="167.0" mnemonicParsing="false" text="Сортировка &quot;УБИЦА&quot;" toggleGroup="$kindOfFiles">
                                               <VBox.margin>
                                                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                               </VBox.margin>
                                           </RadioButton>
-                                          <AnchorPane layoutX="296.0" layoutY="85.0" prefHeight="50.0" prefWidth="331.0" AnchorPane.rightAnchor="0.0">
-                                              <children>
-                                                  <Text layoutX="15.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество генерируемых элементов">
-                                                      <font>
-                                                          <Font size="15.0" />
-                                                      </font>
-                                                      <VBox.margin>
-                                                          <Insets bottom="10.0" top="52.0" />
-                                                      </VBox.margin>
-                                                  </Text>
-                                                  <TextField fx:id="txtNumOfElem" layoutX="80.0" layoutY="44.0" promptText="100" />
-                                              </children>
-                                          </AnchorPane>
-                                      </children>
-                                  </AnchorPane>
-                              </children>
-                          </AnchorPane>
-                          <Button layoutX="266.0" layoutY="308.0" minWidth="84.0" mnemonicParsing="false" onAction="#generateFiles" text="Генерация" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="266.0">
-                              <padding>
-                                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                              </padding>
-                          </Button>
-                      </children>
-                  </AnchorPane>
+                                 </children>
+                              </Group>
+                                    <AnchorPane layoutX="296.0" layoutY="85.0" prefHeight="50.0" prefWidth="331.0" AnchorPane.rightAnchor="0.0">
+                                        <children>
+                                            <Text layoutX="15.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество генерируемых элементов">
+                                                <font>
+                                                    <Font size="15.0" />
+                                                </font>
+                                                <VBox.margin>
+                                                    <Insets bottom="10.0" top="52.0" />
+                                                </VBox.margin>
+                                            </Text>
+                                            <TextField fx:id="txtNumOfElem" layoutX="80.0" layoutY="44.0" promptText="100" />
+                                        </children>
+                                    </AnchorPane>
+                                </children>
+                            </AnchorPane>
+                        </children>
+                    </AnchorPane>
               </children>
           </AnchorPane>
       </content>
@@ -176,7 +178,7 @@
                                             <Insets bottom="10.0" />
                                         </VBox.margin>
                                     </Text>
-                              <TableView fx:id="tvFiles" editable="true" prefHeight="200.0" prefWidth="200.0">
+                              <TableView fx:id="tvFiles" editable="true" prefHeight="242.0" prefWidth="596.0">
                                 <columns>
                                   <TableColumn fx:id="select" maxWidth="150.0" minWidth="58.0" prefWidth="58.0" text="Select" />
                                   <TableColumn fx:id="fileName" prefWidth="548.0" text="FIleName" />
@@ -192,8 +194,8 @@
                             </VBox>
                         </children>
                     </AnchorPane>
-                    <Button fx:id="btnAddFiles" mnemonicParsing="false" onAction="#addFiles" text="Добавить" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="100.0" />
-                    <Button fx:id="btnSort" mnemonicParsing="false" onAction="#sortFiles" text="Сортировка" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="100.0" />
+                    <Button fx:id="btnAddFiles" mnemonicParsing="false" onAction="#addFiles" prefHeight="25.0" prefWidth="100.0" text="Добавить" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="100.0" />
+                    <Button fx:id="btnSort" mnemonicParsing="false" onAction="#sortFiles" prefHeight="25.0" prefWidth="100.0" text="Сортировка" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="100.0" />
                 </children>
             </AnchorPane>
         </content>
@@ -208,12 +210,12 @@
                                 <content>
                                     <AnchorPane>
                                         <children>
-                                            <BarChart fx:id="bcTime" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <BarChart fx:id="bcTime" animated="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <xAxis>
                                                     <CategoryAxis side="BOTTOM" />
                                                 </xAxis>
                                                 <yAxis>
-                                                    <NumberAxis side="LEFT" />
+                                                    <NumberAxis label="Миллисекунды" side="LEFT" />
                                                 </yAxis>
                                             </BarChart>
                                         </children>
@@ -224,7 +226,7 @@
                                 <content>
                                     <AnchorPane>
                                         <children>
-                                            <BarChart fx:id="bcComparisons" prefHeight="334.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <BarChart fx:id="bcComparisons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <xAxis>
                                                     <CategoryAxis side="BOTTOM" />
                                                 </xAxis>
@@ -240,7 +242,7 @@
                                 <content>
                                     <AnchorPane>
                                         <children>
-                                            <BarChart fx:id="bcExchanges" prefHeight="334.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <BarChart fx:id="bcExchanges" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <xAxis>
                                                     <CategoryAxis side="BOTTOM" />
                                                 </xAxis>
@@ -254,6 +256,11 @@
                             </Tab>
                         </tabs>
                     </TabPane>
+                  <Button layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sortFiles" prefHeight="28.0" prefWidth="32.0" text="⟳" AnchorPane.rightAnchor="5.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                 </children>
             </AnchorPane>
         </content>
