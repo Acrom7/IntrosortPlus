@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
 
 import ru.colddegree.gen.*;
 import ru.colddegree.sort.*;
@@ -64,6 +64,9 @@ public class Controller {
     private BarChart bcComparisons;
     @FXML
     private BarChart bcExchanges;
+
+
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
     //Генерация файлов для сортировка
@@ -186,6 +189,10 @@ public class Controller {
         XYChart.Series excIntroSort = new XYChart.Series();
         excIntroSort.setName("IntroSort");
 
+
+        executor.shutdown();
+        executor = Executors.newSingleThreadExecutor();
+
         for (int i = 0; i < myFiles.size(); i++) {
             if (myFiles.get(i).getCheckBox().isSelected()) {
                 Sorter introSorter = new IntroSorter();
@@ -224,8 +231,8 @@ public class Controller {
                         excIntroSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), introSorter.getExchanges()));
                     }
                 });
-                Thread t1 = new Thread(introsortTask);
-                t1.start();
+
+                executor.execute( new Thread(introsortTask) );
 
 
 
@@ -257,8 +264,8 @@ public class Controller {
                         excQuickSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), quickSorter.getExchanges()));
                     }
                 });
-                Thread t2 = new Thread(quicksortTask);
-                t2.start();
+
+                executor.execute( new Thread(quicksortTask) );
 
             }
         }
@@ -295,4 +302,7 @@ public class Controller {
         return seq;
     }
 
+    public void stopExecution(ActionEvent actionEvent) {
+        executor.shutdown();
+    }
 }

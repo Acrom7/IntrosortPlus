@@ -256,7 +256,12 @@
                             </Tab>
                         </tabs>
                     </TabPane>
-                  <Button layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sortFiles" prefHeight="28.0" prefWidth="32.0" text="⟳" AnchorPane.rightAnchor="5.0">
+                  <Button layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sortFiles" prefHeight="28.0" prefWidth="32.0" text="⟳" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopExecution" prefHeight="28.0" prefWidth="177.0" text="Остановить исполнение" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="14.0" />
                      </font>
