@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/seq/123.seq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/seq/345.seq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -350,7 +345,7 @@
       <workItem from="1528781099553" duration="4680000" />
       <workItem from="1528787986300" duration="4991000" />
       <workItem from="1528794087397" duration="9937000" />
-      <workItem from="1528884049484" duration="9354000" />
+      <workItem from="1528884049484" duration="9610000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил выбор файлов, и якоря (хз зачем)">
       <created>1528111080222</created>
@@ -387,11 +382,18 @@
       <option name="project" value="LOCAL" />
       <updated>1528808787399</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Генерация нескольких файлов одной последовательности">
+      <created>1528893893255</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1528893893255</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48667000" />
+    <option name="totallyTimeSpent" value="48923000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1366" height="741" extended-state="6" />
@@ -475,7 +477,8 @@
     <MESSAGE value="Рабочий FileChooser (только *.seq, в папке resources/seq)" />
     <MESSAGE value="Добавил MyFile" />
     <MESSAGE value="Осталось отловить кучу возможный исключений" />
-    <option name="LAST_COMMIT_MESSAGE" value="Осталось отловить кучу возможный исключений" />
+    <MESSAGE value="Генерация нескольких файлов одной последовательности" />
+    <option name="LAST_COMMIT_MESSAGE" value="Генерация нескольких файлов одной последовательности" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
