@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -9,23 +11,33 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseDragEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.concurrent.*;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
+import javafx.util.Duration;
+import javafx.util.converter.IntegerStringConverter;
 import ru.colddegree.gen.*;
 import ru.colddegree.sort.*;
 
-public class Controller {
+public class Controller implements Initializable {
+
+    public Button btnStopSort;
 
     //Главное окно - TabPane
     @FXML
@@ -56,6 +68,7 @@ public class Controller {
     @FXML
     private TableView<MyFile> tvFiles;
     private ObservableList<MyFile> myFiles = FXCollections.observableArrayList();
+    public CheckBox cbAllFiles;
 
     //Графики
     @FXML
@@ -68,6 +81,18 @@ public class Controller {
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        btnStopSort.setTooltip(new Tooltip("Прекращает выполнение сортировки\n"));
+        btnStopSort.getTooltip().setShowDelay(new Duration(100));
+
+        //Вводить можно только цифры
+        setNumbersOnly(txtNumOfElem);
+        setNumbersOnly(txtFirstValueAP);
+        setNumbersOnly(txtStepAP);
+        setNumbersOnly(txtFirstValueRand);
+        setNumbersOnly(txtLastValueRand);
+    }
 
     //Генерация файлов для сортировка
     public void generateFiles(ActionEvent actionEvent) {
@@ -76,7 +101,7 @@ public class Controller {
         rbRandomSeq.setUserData("RandomSeq");
 
         //Количество элементов
-        int numOfElem = Integer.parseInt(txtNumOfElem.getText());
+        int numOfElem = Integer.parseInt(getTextFromField(txtNumOfElem));
 
         //Выбор типа генератора
         SequenceGenerator sequenceGenerator;
@@ -84,8 +109,8 @@ public class Controller {
         //Определяет нужно ли ещё раз генерить
         switch (kindOfFiles.getSelectedToggle().getUserData().toString()) {
             case "APSeq":
-                int initialValue = Integer.parseInt(txtFirstValueAP.getText());
-                int step = Integer.parseInt(txtStepAP.getText());
+                int initialValue = Integer.parseInt(getTextFromField(txtFirstValueAP));
+                int step = Integer.parseInt(getTextFromField(txtStepAP));
                 nameOfFile = "APSeq" + '_' + initialValue + '_' + step + '_' + numOfElem;
                 sequenceGenerator = new SequenceGenerator(new SequentialNumberGenerator(initialValue, step), numOfElem);
                 break;
@@ -94,8 +119,12 @@ public class Controller {
                 sequenceGenerator = new SequenceGenerator(new MedianOf3KillerNumberGenerator(numOfElem), numOfElem);
                 break;
             case "RandomSeq":
-                int from = Integer.parseInt(txtFirstValueRand.getText());
-                int to = Integer.parseInt(txtLastValueRand.getText());
+                int from = Integer.parseInt(getTextFromField(txtFirstValueRand));
+                int to = Integer.parseInt(getTextFromField(txtLastValueRand));
+                if (from > to) {
+                    throwAlertWindow("Значения \"От\" и \"До\" не верны");
+                    return;
+                }
                 nameOfFile = "RandomSeq" + '_' + from + '_' + to + '_' + numOfElem;
                 sequenceGenerator = new SequenceGenerator(new RandomNumberGenerator(from, to), numOfElem);
                 break;
@@ -198,8 +227,6 @@ public class Controller {
                 Sorter introSorter = new IntroSorter();
                 Sorter quickSorter = new QuickSorter();
 
-
-
                 final int idx = i;
 
 
@@ -232,9 +259,7 @@ public class Controller {
                     }
                 });
 
-                executor.execute( new Thread(introsortTask) );
-
-
+                executor.execute(new Thread(introsortTask));
 
 
                 Task quicksortTask = new Task<Long>() {
@@ -265,14 +290,12 @@ public class Controller {
                     }
                 });
 
-                executor.execute( new Thread(quicksortTask) );
+                executor.execute(new Thread(quicksortTask));
 
             }
         }
 
         //Добавляем на график
-//        bcTime.getData().add(timeIntroSort);
-//        bcTime.getData().add(timeQuickSort);
         bcTime.getData().addAll(timeIntroSort, timeQuickSort);
         bcComparisons.getData().addAll(cmpIntroSort, cmpQuickSort);
         bcExchanges.getData().addAll(excIntroSort, excQuickSort);
@@ -304,5 +327,53 @@ public class Controller {
 
     public void stopExecution(ActionEvent actionEvent) {
         executor.shutdown();
+    }
+
+    //Используя регулярку можно вводить только Integer
+    public void setNumbersOnly(TextField textField) {
+        UnaryOperator<TextFormatter.Change> integerFilter = change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\0?-?([0-9]*)?")) {
+                return change;
+            }
+            return null;
+        };
+
+        textField.setTextFormatter(new TextFormatter<>(integerFilter));
+//        textField.setTextFormatter(new TextFormatter<Integer>(new IntegerStringConverter(), 0, integerFilter));
+    }
+
+    //Удаление отмеченых файлов из таблицы
+    public void deleteFiles(ActionEvent actionEvent) {
+        for (int i = 0; i < myFiles.size(); ++i) {
+            if (myFiles.get(i).getCheckBox().isSelected()) {
+                myFiles.remove(i);
+                --i;
+            }
+        }
+    }
+
+    public void chooseAllFiles(ActionEvent actionEvent) {
+        boolean newSelect = cbAllFiles.isSelected();
+        for (int i = 0; i < myFiles.size(); i++) {
+            myFiles.get(i).getCheckBox().setSelected(newSelect);
+        }
+    }
+
+    public void throwAlertWindow(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Внимание!");
+        alert.setHeaderText("ОШИБКА");
+        alert.setContentText(message);
+        alert.show();
+    }
+
+    //Возвращает текст из textField если он есть, иначе PromptText
+    public String getTextFromField(TextField textField) {
+        if (textField.getText().isEmpty()) {
+            return textField.getPromptText();
+        } else {
+            return textField.getText();
+        }
     }
 }
