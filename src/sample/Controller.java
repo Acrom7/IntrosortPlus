@@ -102,6 +102,10 @@ public class Controller implements Initializable {
 
         //Количество элементов
         int numOfElem = Integer.parseInt(getTextFromField(txtNumOfElem));
+        if (numOfElem < 0) {
+            throwAlertWindow("Количество генерируемых элементов не может быть отрицательным");
+            return;
+        }
 
         //Выбор типа генератора
         SequenceGenerator sequenceGenerator;
