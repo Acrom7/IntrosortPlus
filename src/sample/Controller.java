@@ -115,11 +115,13 @@ public class Controller implements Initializable {
             case "APSeq":
                 int initialValue = Integer.parseInt(getTextFromField(txtFirstValueAP));
                 int step = Integer.parseInt(getTextFromField(txtStepAP));
-                nameOfFile = "APSeq" + '_' + initialValue + '_' + step + '_' + numOfElem;
+                // filename: "[Arithmetic] 0 step 1, 100 elems.seq"
+                nameOfFile = "[Arithmetic] " + initialValue + " step " + step + ", " + numOfElem + " elems";
                 sequenceGenerator = new SequenceGenerator(new SequentialNumberGenerator(initialValue, step), numOfElem);
                 break;
             case "KillerSeq":
-                nameOfFile = "KillerSeq" + '_' + numOfElem;
+                // filename: "[Killer] 100 elems.seq"
+                nameOfFile = "[Killer] " + numOfElem + " elems";
                 sequenceGenerator = new SequenceGenerator(new MedianOf3KillerNumberGenerator(numOfElem), numOfElem);
                 break;
             case "RandomSeq":
@@ -129,7 +131,8 @@ public class Controller implements Initializable {
                     throwAlertWindow("Значения \"От\" и \"До\" не верны");
                     return;
                 }
-                nameOfFile = "RandomSeq" + '_' + from + '_' + to + '_' + numOfElem;
+                // filename: "[Random] 0 to 10, 100 elems.seq"
+                nameOfFile = "[Random] " + from + " to " + to + ", " + numOfElem + " elems";
                 sequenceGenerator = new SequenceGenerator(new RandomNumberGenerator(from, to), numOfElem);
                 break;
             default:
