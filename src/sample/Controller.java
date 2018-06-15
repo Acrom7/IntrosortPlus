@@ -103,7 +103,7 @@ public class Controller implements Initializable {
         //Количество элементов
         int numOfElem = Integer.parseInt(getTextFromField(txtNumOfElem));
         if (numOfElem < 0) {
-            throwAlertWindow("Количество генерируемых элементов не может быть отрицательным");
+            throwAlertWindow("Количество генерируемых элементов\nне может быть отрицательным");
             return;
         }
 
@@ -337,7 +337,7 @@ public class Controller implements Initializable {
     public void setNumbersOnly(TextField textField) {
         UnaryOperator<TextFormatter.Change> integerFilter = change -> {
             String newText = change.getControlNewText();
-            if (newText.matches("\0?-?([0-9]*)?")) {
+            if (newText.matches("\0?[0-]?([1-9][0-9]*)?")) {
                 return change;
             }
             return null;

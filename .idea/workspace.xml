@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,16 +78,14 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="298" column="62" selection-start-line="298" selection-start-column="62" selection-end-line="298" selection-end-column="62" />
+            <state relative-caret-position="362">
+              <caret line="339" column="36" selection-start-line="339" selection-start-column="36" selection-end-line="339" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#initialize#0;class#Controller#0" />
-                <element signature="method#generateFiles#0;class#Controller#0" />
                 <element signature="method#addFile#0;class#Controller#0" />
                 <element signature="method#addFiles#0;class#Controller#0" />
+                <element signature="method#sortFiles#0;class#Controller#0" />
                 <element signature="method#getSequenceFromFile#0;class#Controller#0" />
-                <element signature="method#setNumbersOnly#0;class#Controller#0" />
                 <element signature="method#deleteFiles#0;class#Controller#0" />
                 <element signature="method#chooseAllFiles#0;class#Controller#0" />
                 <element signature="method#throwAlertWindow#0;class#Controller#0" />
@@ -103,8 +99,8 @@
         <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2745">
-              <caret line="183" column="64" selection-start-line="183" selection-start-column="64" selection-end-line="183" selection-end-column="64" />
+            <state relative-caret-position="2880">
+              <caret line="192" column="64" selection-start-line="192" selection-start-column="64" selection-end-line="192" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -165,6 +161,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,8 +196,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -379,7 +375,9 @@
       <workItem from="1528968197112" duration="1117000" />
       <workItem from="1528969440468" duration="4583000" />
       <workItem from="1528975159275" duration="6724000" />
-      <workItem from="1528982354746" duration="92000" />
+      <workItem from="1528982354746" duration="246000" />
+      <workItem from="1529017917203" duration="878000" />
+      <workItem from="1529022022262" duration="3241000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил выбор файлов, и якоря (хз зачем)">
       <created>1528111080222</created>
@@ -430,11 +428,18 @@
       <option name="project" value="LOCAL" />
       <updated>1528893902760</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Удаление из таблицы, выбор всего (некорректно, но работает), setNumbersOnly">
+      <created>1528982587319</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1528982587319</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67402000" />
+    <option name="totallyTimeSpent" value="71675000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1366" height="741" extended-state="6" />
@@ -442,11 +447,12 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49926794" weight="0.32967034" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.21821035" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32810047" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21821035" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5702306" visible="true" weight="0.2284041" />
@@ -454,10 +460,9 @@
       <window_info id="Structure" order="1" sideWeight="0.4297694" side_tool="true" weight="0.2284041" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3987441" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3987441" />
       <window_info anchor="right" id="JetGradle" order="3" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49926794" weight="0.32967034" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Problems" order="7" />
@@ -473,28 +478,28 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
+      <window_info id="Designer" order="2" />
       <window_info active="true" anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="Application Servers" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2511774" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32810047" />
       <window_info anchor="bottom" id="Problems" order="9" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Learn" order="4" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.24743778" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2511774" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info id="Designer" order="2" />
+      <window_info anchor="bottom" id="Profiler" order="12" />
       <window_info id="UI Designer" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info id="Learn" order="4" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="bottom" id="Profiler" order="12" />
       <window_info anchor="right" id="JetGradle" order="5" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3987441" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32810047" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -551,11 +556,12 @@
     <MESSAGE value="Добавил MyFile" />
     <MESSAGE value="Осталось отловить кучу возможный исключений" />
     <MESSAGE value="Генерация нескольких файлов одной последовательности" />
-    <option name="LAST_COMMIT_MESSAGE" value="Генерация нескольких файлов одной последовательности" />
+    <MESSAGE value="Удаление из таблицы, выбор всего (некорректно, но работает), setNumbersOnly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Удаление из таблицы, выбор всего (некорректно, но работает), setNumbersOnly" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="18" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -814,8 +820,8 @@
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2745">
-          <caret line="183" column="64" selection-start-line="183" selection-start-column="64" selection-end-line="183" selection-end-column="64" />
+        <state relative-caret-position="2880">
+          <caret line="192" column="64" selection-start-line="192" selection-start-column="64" selection-end-line="192" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -828,16 +834,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="298" column="62" selection-start-line="298" selection-start-column="62" selection-end-line="298" selection-end-column="62" />
+        <state relative-caret-position="362">
+          <caret line="339" column="36" selection-start-line="339" selection-start-column="36" selection-end-line="339" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#initialize#0;class#Controller#0" />
-            <element signature="method#generateFiles#0;class#Controller#0" />
             <element signature="method#addFile#0;class#Controller#0" />
             <element signature="method#addFiles#0;class#Controller#0" />
+            <element signature="method#sortFiles#0;class#Controller#0" />
             <element signature="method#getSequenceFromFile#0;class#Controller#0" />
-            <element signature="method#setNumbersOnly#0;class#Controller#0" />
             <element signature="method#deleteFiles#0;class#Controller#0" />
             <element signature="method#chooseAllFiles#0;class#Controller#0" />
             <element signature="method#throwAlertWindow#0;class#Controller#0" />
