@@ -8,7 +8,7 @@ public class IntroSorter extends QuickSorter {
 
     @Override
     protected void quicksort(int from, int to) {
-        final int maxDepth = log2nlz(array.length) * 2;
+        final int maxDepth = log2nlz(array.length);
         introsort(from, to, maxDepth);
     }
 

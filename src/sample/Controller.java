@@ -102,8 +102,8 @@ public class Controller implements Initializable {
 
         //Количество элементов
         int numOfElem = Integer.parseInt(getTextFromField(txtNumOfElem));
-        if (numOfElem < 0) {
-            throwAlertWindow("Количество генерируемых элементов\nне может быть отрицательным");
+        if (numOfElem <= 0) {
+            throwAlertWindow("Количество генерируемых элементов\nдолжно быть положительным");
             return;
         }
 
@@ -147,7 +147,7 @@ public class Controller implements Initializable {
         //Подбор имени файла если оригинал (или предыдущие) уже заняты
         for (int i = 1; i <= 10000; i++) {
             if (file.exists()) {
-                file = new File(nameOfFile + "_" + i + seq);
+                file = new File(nameOfFile + "(" + i + ")" + seq);
             } else {
                 break;
             }
@@ -226,7 +226,7 @@ public class Controller implements Initializable {
         excIntroSort.setName("IntroSort");
 
 
-        executor.shutdown();
+//        executor.shutdown();
         executor = Executors.newSingleThreadExecutor();
 
         for (int i = 0; i < myFiles.size(); i++) {
@@ -306,6 +306,7 @@ public class Controller implements Initializable {
         bcTime.getData().addAll(timeIntroSort, timeQuickSort);
         bcComparisons.getData().addAll(cmpIntroSort, cmpQuickSort);
         bcExchanges.getData().addAll(excIntroSort, excQuickSort);
+        executor.shutdown();
     }
 
     /**
