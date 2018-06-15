@@ -28,7 +28,7 @@
       <content>
           <AnchorPane id="generateTab" styleClass="background" stylesheets="@../ru/colddegree/style/Background.css">
               <children>
-                    <Button layoutX="268.0" layoutY="333.0" mnemonicParsing="false" onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="268.0">
+                    <Button layoutX="268.0" layoutY="333.0" mnemonicParsing="false" onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="56.0">
                         <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                         </padding>
@@ -142,7 +142,7 @@
                                           </GridPane>
                                        </children>
                                     </Group>
-                                          <RadioButton fx:id="rbKillerSeq" layoutX="16.0" layoutY="167.0" mnemonicParsing="false" text="Сортировка &quot;УБИЦА&quot;" toggleGroup="$kindOfFiles">
+                                          <RadioButton fx:id="rbKillerSeq" layoutX="16.0" layoutY="167.0" mnemonicParsing="false" text="Последовательность &quot;УБИЦА&quot;" toggleGroup="$kindOfFiles">
                                               <VBox.margin>
                                                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                               </VBox.margin>
