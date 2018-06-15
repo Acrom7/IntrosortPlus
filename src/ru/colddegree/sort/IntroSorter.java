@@ -8,19 +8,18 @@ public class IntroSorter extends QuickSorter {
 
     @Override
     protected void quicksort(int from, int to) {
-        final int maxDepth = log2nlz(array.length);
-        introsort(from, to, maxDepth);
+        final int depthLimit = log2nlz(array.length) * 2;
+        introsort(from, to, depthLimit);
     }
 
-    private void introsort(int low, int high, int maxDepth) {
+    private void introsort(int low, int high, int depthLimit) {
         if (low < high) {
-            int mid = partition(low, high);
-
-            if (mid > maxDepth) {
+            if (depthLimit == 0) {
                 heapSorter.sort(array, low, high);
             } else {
-                introsort(low, mid - 1, maxDepth - 1);
-                introsort(mid + 1, high, maxDepth - 1);
+                int pivot = partition(low, high);
+                introsort(low, pivot - 1, depthLimit - 1);
+                introsort(pivot + 1, high, depthLimit - 1);
             }
         }
     }

@@ -12,9 +12,9 @@ public class QuickSorter extends SorterBase {
 
     protected void quicksort(int low, int high) {
         if (low < high) {
-            int mid = partition(low, high);
-            quicksort(low, mid - 1);
-            quicksort(mid + 1, high);
+            int pivot = partition(low, high);
+            quicksort(low, pivot - 1);
+            quicksort(pivot + 1, high);
         }
     }
 
