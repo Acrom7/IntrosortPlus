@@ -72,11 +72,11 @@ public class Controller implements Initializable {
 
     //Графики
     @FXML
-    private BarChart bcTime;
+    private BarChart<String, Long> bcTime;
     @FXML
-    private BarChart bcComparisons;
+    private BarChart<String, Long> bcComparisons;
     @FXML
-    private BarChart bcExchanges;
+    private BarChart<String, Long> bcExchanges;
 
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -210,19 +210,19 @@ public class Controller implements Initializable {
         //Переключаемся на вкладку
         tpMainWindows.getSelectionModel().select(2);
 
-        XYChart.Series timeQuickSort = new XYChart.Series();
+        XYChart.Series<String, Long> timeQuickSort = new XYChart.Series<>();
         timeQuickSort.setName("QuickSort");
-        XYChart.Series timeIntroSort = new XYChart.Series();
+        XYChart.Series<String, Long> timeIntroSort = new XYChart.Series<>();
         timeIntroSort.setName("IntroSort");
 
-        XYChart.Series cmpQuickSort = new XYChart.Series();
+        XYChart.Series<String, Long> cmpQuickSort = new XYChart.Series<>();
         cmpQuickSort.setName("QuickSort");
-        XYChart.Series cmpIntroSort = new XYChart.Series();
+        XYChart.Series<String, Long> cmpIntroSort = new XYChart.Series<>();
         cmpIntroSort.setName("IntroSort");
 
-        XYChart.Series excQuickSort = new XYChart.Series();
+        XYChart.Series<String, Long> excQuickSort = new XYChart.Series<>();
         excQuickSort.setName("QuickSort");
-        XYChart.Series excIntroSort = new XYChart.Series();
+        XYChart.Series<String, Long> excIntroSort = new XYChart.Series<>();
         excIntroSort.setName("IntroSort");
 
 
@@ -255,14 +255,14 @@ public class Controller implements Initializable {
                     public void handle(WorkerStateEvent event) {
                         //Добавляем данные в серию
                         try {
-                            timeIntroSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), introsortTask.get()));
+                            timeIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Long) introsortTask.get()));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
-                        cmpIntroSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), introSorter.getComparisons()));
-                        excIntroSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), introSorter.getExchanges()));
+                        cmpIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getComparisons()));
+                        excIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getExchanges()));
                     }
                 });
 
@@ -286,14 +286,14 @@ public class Controller implements Initializable {
                     @Override
                     public void handle(WorkerStateEvent event) {
                         try {
-                            timeQuickSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), quicksortTask.get()));
+                            timeQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Long) quicksortTask.get()));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
-                        cmpQuickSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), quickSorter.getComparisons()));
-                        excQuickSort.getData().add(new XYChart.Data(myFiles.get(idx).getName(), quickSorter.getExchanges()));
+                        cmpQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getComparisons()));
+                        excQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getExchanges()));
                     }
                 });
 
