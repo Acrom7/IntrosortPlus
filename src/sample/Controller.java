@@ -225,7 +225,6 @@ public class Controller implements Initializable {
         XYChart.Series<String, Long> excIntroSort = new XYChart.Series<>();
         excIntroSort.setName("IntroSort");
 
-
 //        executor.shutdown();
         executor = Executors.newSingleThreadExecutor();
 
@@ -235,7 +234,6 @@ public class Controller implements Initializable {
                 Sorter quickSorter = new QuickSorter();
 
                 final int idx = i;
-
 
                 Task introsortTask = new Task<Long>() {
                     @Override
@@ -256,18 +254,15 @@ public class Controller implements Initializable {
                         //Добавляем данные в серию
                         try {
                             timeIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Long) introsortTask.get()));
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
+                            cmpIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getComparisons()));
+                            excIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getExchanges()));
+                        } catch (InterruptedException | ExecutionException e) {
                             e.printStackTrace();
                         }
-                        cmpIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getComparisons()));
-                        excIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getExchanges()));
                     }
                 });
 
                 executor.execute(new Thread(introsortTask));
-
 
                 Task quicksortTask = new Task<Long>() {
                     @Override
@@ -287,13 +282,11 @@ public class Controller implements Initializable {
                     public void handle(WorkerStateEvent event) {
                         try {
                             timeQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Long) quicksortTask.get()));
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
+                            cmpQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getComparisons()));
+                            excQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getExchanges()));
+                        } catch (InterruptedException | ExecutionException e) {
                             e.printStackTrace();
                         }
-                        cmpQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getComparisons()));
-                        excQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getExchanges()));
                     }
                 });
 
