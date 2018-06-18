@@ -203,6 +203,12 @@ public class Controller implements Initializable {
     }
 
     public void sortFiles(ActionEvent actionEvent) {
+
+        if (myFiles.isEmpty()) {
+            throwAlertWindow("Выберите файлы для сортировки");
+            return;
+        }
+
         bcTime.getData().clear();
         bcExchanges.getData().clear();
         bcComparisons.getData().clear();
