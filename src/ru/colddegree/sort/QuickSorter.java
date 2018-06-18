@@ -18,30 +18,34 @@ public class QuickSorter extends SorterBase {
         }
     }
 
+    // разбиение Ломуто
     protected int partition(int low, int high) {
-        int pivot = getPivot(low, high);
-        int i = low - 1;
+        int pivot = medianOf3(low, high);
+        int i = low;
 
         for (int j = low; j < high; j++) {
             if ( compare(array[j], pivot) <= 0 ) { // array[j] <= pivot
-                i++;
                 swap(i, j);
+                i++;
             }
         }
 
-        swap(i + 1, high);
+        swap(i, high);
 
-        return i + 1;
+        return i;
     }
 
-    private int getPivot(int low, int high) {
-//        return high; // trivial
-
+    // получение медианы трёх для разбиения Ломуто
+    private int medianOf3(int low, int high) {
         int mid = (low + high) / 2;
 
-        // return median of array[low], array[mid] and array[high]
-        return Math.max(
-                Math.min(array[low], array[mid]),
-                Math.min( Math.max(array[low], array[mid]), array[high] ));
+        if (array[mid] < array[low])
+            swap(low, mid);
+        if (array[high] < array[low])
+            swap(low, high);
+        if (array[mid] < array[high])
+            swap(mid, high);
+
+        return array[high];
     }
 }
