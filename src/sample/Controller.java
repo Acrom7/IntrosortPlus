@@ -237,29 +237,9 @@ public class Controller implements Initializable {
                 continue;
 
             Sorter introSorter = new IntroSorter();
-            Sorter quickSorter = new QuickSorter();
-
-            final int ITERATIONS = 15;
 
             // добавляем задачу сортировки интроспективной сортировкой
-            Task introsortTask = new Task<Double>() {
-                @Override
-                protected Double call() throws Exception {
-                    List<Long> execTimes = new ArrayList<>();
-
-                    for (int i = 0; i < ITERATIONS; i++) {
-                        int[] seq = getSequenceFromFile(file.getFile());
-                        introSorter.sort(seq);
-                        execTimes.add(introSorter.getExecutionTime());
-                    }
-
-                    execTimes.sort(null);
-                    execTimes.remove(0);
-                    execTimes.remove(execTimes.size() - 1);
-
-                    return execTimes.stream().mapToLong(val -> val).average().orElse(0.0);
-                }
-            };
+            Task<Double> introsortTask = createSorterTask(file, introSorter);
 
             introsortTask.setOnSucceeded( (event) -> {
                 //Добавляем данные в серию
@@ -275,25 +255,11 @@ public class Controller implements Initializable {
             executor.execute(new Thread(introsortTask));
 
 
+
+            Sorter quickSorter = new QuickSorter();
+
             // добавляем задачу сортировки быстрой сортировкой
-            Task quicksortTask = new Task<Double>() {
-                @Override
-                protected Double call() throws Exception {
-                    List<Long> execTimes = new ArrayList<>();
-
-                    for (int i = 0; i < ITERATIONS; i++) {
-                        int[] seq = getSequenceFromFile(file.getFile());
-                        quickSorter.sort(seq);
-                        execTimes.add(quickSorter.getExecutionTime());
-                    }
-
-                    execTimes.sort(null);
-                    execTimes.remove(0);
-                    execTimes.remove(execTimes.size() - 1);
-
-                    return execTimes.stream().mapToLong(val -> val).average().orElse(0.0);
-                }
-            };
+            Task<Double> quicksortTask = createSorterTask(file, introSorter);
 
             quicksortTask.setOnSucceeded( (event) -> {
                 //Добавляем данные в серию
@@ -391,5 +357,28 @@ public class Controller implements Initializable {
         } else {
             return textField.getText();
         }
+    }
+
+    private Task<Double> createSorterTask(MyFile file, Sorter sorter) {
+        final int ITERATIONS = 15;
+
+        return new Task<Double>() {
+            @Override
+            protected Double call() throws Exception {
+                List<Long> execTimes = new ArrayList<>();
+
+                for (int i = 0; i < ITERATIONS; i++) {
+                    int[] seq = getSequenceFromFile(file.getFile());
+                    sorter.sort(seq);
+                    execTimes.add(sorter.getExecutionTime());
+                }
+
+                execTimes.sort(null);
+                execTimes.remove(0);
+                execTimes.remove(execTimes.size() - 1);
+
+                return execTimes.stream().mapToLong(val -> val).average().orElse(0.0);
+            }
+        };
     }
 }
