@@ -232,14 +232,13 @@ public class Controller implements Initializable {
 
         executor = Executors.newSingleThreadExecutor();
 
-        for (int i = 0; i < myFiles.size(); i++) {
-            if (!myFiles.get(i).getCheckBox().isSelected())
+        for (MyFile file : myFiles) {
+            if (!file.getCheckBox().isSelected())
                 continue;
 
             Sorter introSorter = new IntroSorter();
             Sorter quickSorter = new QuickSorter();
 
-            final int idx = i;
             final int ITERATIONS = 15;
 
             // добавляем задачу сортировки интроспективной сортировкой
@@ -249,7 +248,7 @@ public class Controller implements Initializable {
                     List<Long> execTimes = new ArrayList<>();
 
                     for (int i = 0; i < ITERATIONS; i++) {
-                        int[] seq = getSequenceFromFile(myFiles.get(idx).getFile());
+                        int[] seq = getSequenceFromFile(file.getFile());
                         introSorter.sort(seq);
                         execTimes.add(introSorter.getExecutionTime());
                     }
@@ -265,9 +264,9 @@ public class Controller implements Initializable {
             introsortTask.setOnSucceeded( (event) -> {
                 //Добавляем данные в серию
                 try {
-                    timeIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Double) introsortTask.get()));
-                    cmpIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getComparisons()));
-                    excIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getExchanges()));
+                    timeIntroSort.getData().add(new XYChart.Data<>(file.getName(), (Double) introsortTask.get()));
+                    cmpIntroSort.getData().add(new XYChart.Data<>(file.getName(), introSorter.getComparisons()));
+                    excIntroSort.getData().add(new XYChart.Data<>(file.getName(), introSorter.getExchanges()));
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
@@ -283,7 +282,7 @@ public class Controller implements Initializable {
                     List<Long> execTimes = new ArrayList<>();
 
                     for (int i = 0; i < ITERATIONS; i++) {
-                        int[] seq = getSequenceFromFile(myFiles.get(idx).getFile());
+                        int[] seq = getSequenceFromFile(file.getFile());
                         quickSorter.sort(seq);
                         execTimes.add(quickSorter.getExecutionTime());
                     }
@@ -299,9 +298,9 @@ public class Controller implements Initializable {
             quicksortTask.setOnSucceeded( (event) -> {
                 //Добавляем данные в серию
                 try {
-                    timeQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Double) quicksortTask.get()));
-                    cmpQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getComparisons()));
-                    excQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getExchanges()));
+                    timeQuickSort.getData().add(new XYChart.Data<>(file.getName(), (Double) quicksortTask.get()));
+                    cmpQuickSort.getData().add(new XYChart.Data<>(file.getName(), quickSorter.getComparisons()));
+                    excQuickSort.getData().add(new XYChart.Data<>(file.getName(), quickSorter.getExchanges()));
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
