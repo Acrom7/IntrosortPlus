@@ -10,6 +10,7 @@ public class HeapSorter extends SorterBase {
     public void sort(int[] array, int from, int to) {
         super.sort(array, from, to);
         heapsort();
+        postProcess();
     }
 
     private void heapsort() {

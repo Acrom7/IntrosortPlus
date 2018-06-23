@@ -8,6 +8,7 @@ public class QuickSorter extends SorterBase {
     public void sort(int[] array, int from, int to) {
         super.sort(array, from, to);
         quicksort(from, to);
+        postProcess();
     }
 
     protected void quicksort(int low, int high) {

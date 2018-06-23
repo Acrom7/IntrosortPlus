@@ -34,4 +34,11 @@ public interface Sorter {
      * @return количество обменов
      */
     long getExchanges();
+
+    /**
+     * Возвращает время выполнения после выполнения метода сортировки
+     *
+     * @return количество обменов
+     */
+    long getExecutionTime();
 }

@@ -23,9 +23,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -72,7 +70,7 @@ public class Controller implements Initializable {
 
     //Графики
     @FXML
-    private BarChart<String, Long> bcTime;
+    private BarChart<String, Double> bcTime;
     @FXML
     private BarChart<String, Long> bcComparisons;
     @FXML
@@ -216,9 +214,9 @@ public class Controller implements Initializable {
         //Переключаемся на вкладку
         tpMainWindows.getSelectionModel().select(2);
 
-        XYChart.Series<String, Long> timeQuickSort = new XYChart.Series<>();
+        XYChart.Series<String, Double> timeQuickSort = new XYChart.Series<>();
         timeQuickSort.setName("QuickSort");
-        XYChart.Series<String, Long> timeIntroSort = new XYChart.Series<>();
+        XYChart.Series<String, Double> timeIntroSort = new XYChart.Series<>();
         timeIntroSort.setName("IntroSort");
 
         XYChart.Series<String, Long> cmpQuickSort = new XYChart.Series<>();
@@ -231,80 +229,92 @@ public class Controller implements Initializable {
         XYChart.Series<String, Long> excIntroSort = new XYChart.Series<>();
         excIntroSort.setName("IntroSort");
 
-//        executor.shutdown();
+
         executor = Executors.newSingleThreadExecutor();
 
         for (int i = 0; i < myFiles.size(); i++) {
-            if (myFiles.get(i).getCheckBox().isSelected()) {
-                Sorter introSorter = new IntroSorter();
-                Sorter quickSorter = new QuickSorter();
+            if (!myFiles.get(i).getCheckBox().isSelected())
+                continue;
 
-                final int idx = i;
+            Sorter introSorter = new IntroSorter();
+            Sorter quickSorter = new QuickSorter();
 
-                Task introsortTask = new Task<Long>() {
-                    @Override
-                    protected Long call() throws Exception {
+            final int idx = i;
+            final int ITERATIONS = 15;
+
+            // добавляем задачу сортировки интроспективной сортировкой
+            Task introsortTask = new Task<Double>() {
+                @Override
+                protected Double call() throws Exception {
+                    List<Long> execTimes = new ArrayList<>();
+
+                    for (int i = 0; i < ITERATIONS; i++) {
                         int[] seq = getSequenceFromFile(myFiles.get(idx).getFile());
-
-                        long startTime = System.currentTimeMillis();
                         introSorter.sort(seq);
-                        long endTime = System.currentTimeMillis();
-
-                        return endTime - startTime;
+                        execTimes.add(introSorter.getExecutionTime());
                     }
-                };
 
-                introsortTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                    @Override
-                    public void handle(WorkerStateEvent event) {
-                        //Добавляем данные в серию
-                        try {
-                            timeIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Long) introsortTask.get()));
-                            cmpIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getComparisons()));
-                            excIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getExchanges()));
-                        } catch (InterruptedException | ExecutionException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                    execTimes.sort(null);
+                    execTimes.remove(0);
+                    execTimes.remove(execTimes.size() - 1);
 
-                executor.execute(new Thread(introsortTask));
+                    return execTimes.stream().mapToLong(val -> val).average().orElse(0.0);
+                }
+            };
 
-                Task quicksortTask = new Task<Long>() {
-                    @Override
-                    protected Long call() throws Exception {
+            introsortTask.setOnSucceeded( (event) -> {
+                //Добавляем данные в серию
+                try {
+                    timeIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Double) introsortTask.get()));
+                    cmpIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getComparisons()));
+                    excIntroSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), introSorter.getExchanges()));
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            executor.execute(new Thread(introsortTask));
+
+
+            // добавляем задачу сортировки быстрой сортировкой
+            Task quicksortTask = new Task<Double>() {
+                @Override
+                protected Double call() throws Exception {
+                    List<Long> execTimes = new ArrayList<>();
+
+                    for (int i = 0; i < ITERATIONS; i++) {
                         int[] seq = getSequenceFromFile(myFiles.get(idx).getFile());
-
-                        long startTime = System.currentTimeMillis();
                         quickSorter.sort(seq);
-                        long endTime = System.currentTimeMillis();
-
-                        return endTime - startTime;
+                        execTimes.add(quickSorter.getExecutionTime());
                     }
-                };
 
-                quicksortTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                    @Override
-                    public void handle(WorkerStateEvent event) {
-                        try {
-                            timeQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Long) quicksortTask.get()));
-                            cmpQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getComparisons()));
-                            excQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getExchanges()));
-                        } catch (InterruptedException | ExecutionException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                    execTimes.sort(null);
+                    execTimes.remove(0);
+                    execTimes.remove(execTimes.size() - 1);
 
-                executor.execute(new Thread(quicksortTask));
+                    return execTimes.stream().mapToLong(val -> val).average().orElse(0.0);
+                }
+            };
 
-            }
+            quicksortTask.setOnSucceeded( (event) -> {
+                //Добавляем данные в серию
+                try {
+                    timeQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), (Double) quicksortTask.get()));
+                    cmpQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getComparisons()));
+                    excQuickSort.getData().add(new XYChart.Data<>(myFiles.get(idx).getName(), quickSorter.getExchanges()));
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            executor.execute(new Thread(quicksortTask));
         }
 
         //Добавляем на график
         bcTime.getData().addAll(timeIntroSort, timeQuickSort);
         bcComparisons.getData().addAll(cmpIntroSort, cmpQuickSort);
         bcExchanges.getData().addAll(excIntroSort, excQuickSort);
+
         executor.shutdown();
     }
 
