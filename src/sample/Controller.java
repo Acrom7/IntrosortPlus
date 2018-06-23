@@ -259,7 +259,7 @@ public class Controller implements Initializable {
             Sorter quickSorter = new QuickSorter();
 
             // добавляем задачу сортировки быстрой сортировкой
-            Task<Double> quicksortTask = createSorterTask(file, introSorter);
+            Task<Double> quicksortTask = createSorterTask(file, quickSorter);
 
             quicksortTask.setOnSucceeded( (event) -> {
                 //Добавляем данные в серию
