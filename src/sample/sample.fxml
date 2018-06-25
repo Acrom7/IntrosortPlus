@@ -35,7 +35,12 @@
       <content>
           <AnchorPane id="generateTab" styleClass="background" stylesheets="@../ru/colddegree/style/Background.css">
               <children>
-                    <Button layoutX="268.0" layoutY="333.0" mnemonicParsing="false" onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="56.0">
+                  <Text fx:id="txtSuccessAdd" layoutX="324.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Файл успешно добавлен" visible="false" wrappingWidth="148.17578125" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="163.82421875">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Text>
+                    <Button fx:id="btnGenerateFiles" layoutX="268.0" layoutY="333.0" mnemonicParsing="false" onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="56.0">
                         <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                         </padding>
@@ -280,6 +285,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <Text fx:id="txtProgressBar" layoutX="450.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="В процессе..." textAlignment="CENTER" visible="false" wrappingWidth="99.7294921875" AnchorPane.rightAnchor="89.2705078125" />
                   <Button fx:id="btnStopSort" layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopExecution" prefHeight="28.0" prefWidth="32.0" text="❌" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0">
                      <font>
                         <Font size="14.0" />

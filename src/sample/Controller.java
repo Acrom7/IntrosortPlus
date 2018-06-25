@@ -18,6 +18,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseDragEvent;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -35,8 +36,6 @@ import ru.colddegree.sort.*;
 
 public class Controller implements Initializable {
 
-    public Button btnStopSort;
-
     //Главное окно - TabPane
     @FXML
     private TabPane tpMainWindows;
@@ -51,12 +50,16 @@ public class Controller implements Initializable {
     @FXML
     private RadioButton rbKillerSeq;
 
+    public Text txtSuccessAdd;
+
     //Текстовые поля вкладки "Генерация"
     public TextField txtFirstValueRand;
     public TextField txtLastValueRand;
     public TextField txtFirstValueAP;
     public TextField txtStepAP;
     public TextField txtNumOfElem;
+
+    public Button btnGenerateFiles;
 
     //Таблица файлов
     @FXML
@@ -75,7 +78,8 @@ public class Controller implements Initializable {
     private BarChart<String, Long> bcComparisons;
     @FXML
     private BarChart<String, Long> bcExchanges;
-
+    public Button btnStopSort;
+    public Text txtProgressBar;
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -162,6 +166,21 @@ public class Controller implements Initializable {
 
         //Добавление в таблицу
         addFile(file);
+
+
+
+        //Убираем надпись по времени
+        txtSuccessAdd.setVisible(true);
+
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                txtSuccessAdd.setVisible(false);
+            }
+        };
+
+        timer.schedule(timerTask, 1000);
     }
 
     /**
@@ -307,8 +326,9 @@ public class Controller implements Initializable {
         return seq;
     }
 
-    public void stopExecution(ActionEvent actionEvent) {
-        executor.shutdown();
+    public void stopExecution(ActionEvent actionEvent) throws IOException{
+        txtProgressBar.setVisible(false);
+        executor.shutdownNow();
     }
 
     //Используя регулярку можно вводить только Integer
@@ -365,6 +385,8 @@ public class Controller implements Initializable {
         return new Task<Double>() {
             @Override
             protected Double call() throws Exception {
+                txtProgressBar.setVisible(true);
+
                 List<Long> execTimes = new ArrayList<>();
 
                 for (int i = 0; i < ITERATIONS; i++) {
@@ -377,6 +399,7 @@ public class Controller implements Initializable {
                 execTimes.remove(0);
                 execTimes.remove(execTimes.size() - 1);
 
+                txtProgressBar.setVisible(false);
                 return execTimes.stream().mapToLong(val -> val).average().orElse(0.0);
             }
         };
