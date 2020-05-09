@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane fx:id="tpMainWindows" minHeight="400.0" minWidth="636.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="400.0"
+         tabMaxWidth="636.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="sample.controller.MainController">
+    <opaqueInsets>
+        <Insets/>
+    </opaqueInsets>
+    <Tab text="Генерация">
+        <fx:include fx:id="generate" source="generate.fxml"/>
+    </Tab>
+    <Tab text="Файлы">
+        <fx:include fx:id="files" source="files.fxml"/>
+    </Tab>
+    <Tab text="Графики">
+        <fx:include fx:id="charts" source="charts.fxml"/>
+    </Tab>
+</TabPane>

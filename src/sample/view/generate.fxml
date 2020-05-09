@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.GenerateController">
+    <Text fx:id="txtSuccessAdd" layoutX="324.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Файл успешно добавлен" visible="false" wrappingWidth="148.17578125" AnchorPane.bottomAnchor="45.0"
+          AnchorPane.rightAnchor="163.82421875">
+        <font>
+            <Font size="11.0"/>
+        </font>
+    </Text>
+    <Button fx:id="btnGenerateFiles" layoutX="268.0" layoutY="333.0" mnemonicParsing="false"
+            onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация"
+            AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="56.0">
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+    </Button>
+    <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="290.0" prefWidth="627.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Text layoutX="21.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Тип генерируемых файлов">
+                <font>
+                    <Font size="15.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets bottom="10.0"/>
+                </VBox.margin>
+            </Text>
+            <Group layoutX="6.0" layoutY="19.0">
+                <Group layoutX="1.0" layoutY="-68.0">
+                    <GridPane alignment="CENTER" layoutX="15.0" layoutY="124.0" prefHeight="34.0"
+                              prefWidth="223.0">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                               maxWidth="100.0" minWidth="10.0" prefWidth="62.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0"
+                                               prefWidth="63.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                               maxWidth="162.0" minWidth="10.0" prefWidth="43.0"/>
+                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="162.0"
+                                               minWidth="10.0" prefWidth="65.0"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="36.0"
+                                            vgrow="SOMETIMES"/>
+                        </rowConstraints>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="От"
+                              textAlignment="RIGHT">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="До"
+                              textAlignment="RIGHT" GridPane.columnIndex="2">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
+                        </Text>
+                        <TextField fx:id="txtFirstValueRand" promptText="1"
+                                   GridPane.columnIndex="1">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="txtLastValueRand" prefHeight="23.0" prefWidth="74.0"
+                                   promptText="10" GridPane.columnIndex="3">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </TextField>
+                    </GridPane>
+                    <RadioButton fx:id="rbRandomSeq" ellipsisString="123" layoutX="14.0"
+                                 layoutY="107.0" mnemonicParsing="false" selected="true"
+                                 text="Рандомная">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="kindOfFiles"/>
+                        </toggleGroup>
+                        <VBox.margin>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        </VBox.margin>
+                    </RadioButton>
+                </Group>
+                <Group layoutX="1.0" layoutY="-51.0">
+                    <RadioButton fx:id="rbAPSeq" layoutX="14.0" layoutY="147.0"
+                                 mnemonicParsing="false" prefHeight="24.0" prefWidth="229.0"
+                                 selected="true" text="Арифметическая прогрессия"
+                                 toggleGroup="$kindOfFiles" wrapText="true"/>
+                    <GridPane alignment="CENTER" layoutX="15.0" layoutY="171.0" prefHeight="34.0"
+                              prefWidth="223.0">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                               maxWidth="100.0" minWidth="10.0" prefWidth="62.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0"
+                                               prefWidth="63.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                               maxWidth="162.0" minWidth="10.0" prefWidth="47.0"/>
+                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="162.0"
+                                               minWidth="10.0" prefWidth="65.0"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="36.0"
+                                            vgrow="SOMETIMES"/>
+                        </rowConstraints>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Начало"
+                              textAlignment="RIGHT">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг"
+                              textAlignment="RIGHT" GridPane.columnIndex="2">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </GridPane.margin>
+                        </Text>
+                        <TextField fx:id="txtFirstValueAP" promptText="1"
+                                   GridPane.columnIndex="1">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="txtStepAP" promptText="10" GridPane.columnIndex="3">
+                            <GridPane.margin>
+                                <Insets/>
+                            </GridPane.margin>
+                        </TextField>
+                    </GridPane>
+                </Group>
+                <RadioButton fx:id="rbKillerSeq" layoutX="16.0" layoutY="167.0" mnemonicParsing="false"
+                             text="Последовательность &quot;УБИЦА&quot;" toggleGroup="$kindOfFiles">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </VBox.margin>
+                </RadioButton>
+            </Group>
+            <AnchorPane layoutX="296.0" layoutY="85.0" prefHeight="50.0" prefWidth="331.0" AnchorPane.rightAnchor="0.0">
+                <Text layoutX="15.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Количество генерируемых элементов">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="52.0"/>
+                    </VBox.margin>
+                </Text>
+                <TextField fx:id="txtNumOfElem" layoutX="80.0" layoutY="44.0" promptText="100"/>
+            </AnchorPane>
+        </AnchorPane>
+    </AnchorPane>
+</AnchorPane>

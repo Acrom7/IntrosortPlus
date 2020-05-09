@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controller.ChartsController">
+    <TabPane layoutX="1.0" prefHeight="367.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE"
+             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+             AnchorPane.topAnchor="0.0">
+        <Tab text="Время работы">
+            <AnchorPane>
+                <BarChart fx:id="bcTime" animated="false" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Миллисекунды" side="LEFT"/>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Количество сравнений">
+            <AnchorPane>
+                <BarChart fx:id="bcComparisons" animated="false"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT"/>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Количество обменов">
+            <AnchorPane>
+                <BarChart fx:id="bcExchanges" animated="false"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT"/>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
+    <Button layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" mnemonicParsing="false" onAction="#sortFiles" prefHeight="28.0"
+            prefWidth="32.0" text="⟳" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="3.0">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Button>
+    <Text fx:id="txtProgressBar" layoutX="450.0" layoutY="25.0" strokeType="OUTSIDE"
+          strokeWidth="0.0" text="В процессе..." textAlignment="CENTER" visible="false"
+          wrappingWidth="99.7294921875" AnchorPane.rightAnchor="89.2705078125"/>
+    <Button fx:id="btnStopSort" layoutX="10.0" layoutY="12.0" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+            onAction="#stopExecution" prefHeight="28.0" prefWidth="32.0" text="❌"
+            AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Button>
+</AnchorPane>

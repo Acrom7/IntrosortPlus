@@ -10,7 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/index.fxml"));
         primaryStage.setTitle("GUI for Introsort-plus");
         primaryStage.setScene(new Scene(root, 636, 400));
         primaryStage.setMinHeight(root.minHeight(-1));

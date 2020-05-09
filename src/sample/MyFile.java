@@ -6,33 +6,33 @@ import java.io.File;
 
 public class MyFile {
 
-    private File file;
-    private CheckBox checkBox = new CheckBox();
-    private String name;
+  private File file;
+  private CheckBox checkBox = new CheckBox();
+  private String name;
 
-    MyFile(File file) {
-        this.file = file;
-        this.checkBox.setSelected(true);
-        this.name = file.getName();
-    }
+  public MyFile(File file) {
+    this.file = file;
+    this.checkBox.setSelected(true);
+    this.name = file.getName();
+  }
 
-    public CheckBox getCheckBox() {
-        return checkBox;
-    }
+  public CheckBox getCheckBox() {
+    return checkBox;
+  }
 
-    public void setCheckBox(CheckBox checkBox) {
-        this.checkBox = checkBox;
-    }
+  public void setCheckBox(CheckBox checkBox) {
+    this.checkBox = checkBox;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public File getFile() {
+  public File getFile() {
         return file;
     }
 
