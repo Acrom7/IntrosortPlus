@@ -70,7 +70,7 @@ public class GenerateController implements Initializable {
     //Количество элементов
     int numOfElem = Integer.parseInt(getTextFromField(txtNumOfElem));
     if (numOfElem <= 0) {
-      Common.throwAlertWindow("Количество генерируемых элементов\nдолжно быть положительным");
+      Common.throwAlertWindow(mainController.getStage(), "Количество генерируемых элементов\nдолжно быть положительным");
       return;
     }
 
@@ -95,7 +95,7 @@ public class GenerateController implements Initializable {
         int from = Integer.parseInt(getTextFromField(txtFirstValueRand));
         int to = Integer.parseInt(getTextFromField(txtLastValueRand));
         if (from > to) {
-          Common.throwAlertWindow("Значение \"От\" должно быть небольше \"До\"");
+          Common.throwAlertWindow(mainController.getStage(), "Значение \"От\" должно быть небольше \"До\"");
           return;
         }
         // filename: "[Random] 0 to 10, 100 elems.seq"

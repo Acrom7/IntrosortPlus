@@ -15,7 +15,7 @@
 >
     <JFXTabPane layoutX="1.0" prefHeight="367.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                AnchorPane.topAnchor="0.0">
+                AnchorPane.topAnchor="0.0" fx:id="chartsTab">
         <Tab text="Время работы">
             <AnchorPane>
                 <BarChart fx:id="bcTime" animated="false" AnchorPane.bottomAnchor="0.0"

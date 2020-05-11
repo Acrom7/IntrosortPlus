@@ -49,8 +49,8 @@ public class MainController implements Initializable {
     filesController.addFile(file);
   }
 
-  public void sortFiles() {
-    chartsController.sortFiles();
+  public int sortFiles() {
+    return chartsController.sortFiles();
   }
 
   public ObservableList<MyFile> getMyFiles() {
@@ -71,7 +71,13 @@ public class MainController implements Initializable {
     stage.setIconified(true);
   }
 
-  public void fn(ActionEvent actionEvent) {
+  public Stage getStage() {
+    return (Stage) tpMainWindows.getScene().getWindow();
+  }
 
+  public void maxWindow(MouseEvent mouseEvent) {
+    Stage stage = (Stage) btnMin.getScene().getWindow();
+    stage.setFullScreen(true);
+    stage.setFullScreenExitHint(" ");
   }
 }

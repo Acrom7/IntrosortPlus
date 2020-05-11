@@ -1,28 +1,30 @@
 package sample.controller;
 
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.*;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import ru.colddegree.sort.HeapSorter;
 import ru.colddegree.sort.IntroSorter;
 import ru.colddegree.sort.Sorter;
 import sample.MyFile;
 
+import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,7 @@ import java.util.concurrent.Executors;
 public class ChartsController implements Initializable {
   public JFXHamburger show;
   public AnchorPane anchorPane;
+  public JFXTabPane chartsTab;
   private MainController mainController;
   //Графики
   @FXML
@@ -64,6 +67,11 @@ public class ChartsController implements Initializable {
     label2.setOnMouseClicked(e -> this.stopExecution());
     list.getItems().add(label2);
 
+    Label label3 = new Label("Сохранить как...");
+    label3.setStyle("-fx-min-width: 160px;");
+    label3.setOnMouseClicked(e -> this.exportToPng());
+    list.getItems().add(label3);
+
     JFXPopup popup = new JFXPopup(list);
     rippler.setOnMouseClicked(e -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     AnchorPane.setRightAnchor(rippler, 5.0);
@@ -71,12 +79,13 @@ public class ChartsController implements Initializable {
     anchorPane.getChildren().add(rippler);
   }
 
-  public void sortFiles() {
+  public int sortFiles() {
     ObservableList<MyFile> myFiles = mainController.getMyFiles();
 
     if (myFiles.isEmpty()) {
-      Common.throwAlertWindow("Выберите файлы для сортировки");
-      return;
+      Stage stage = mainController.getStage();
+      Common.throwAlertWindow(stage, "Выберите файлы для сортировки");
+      return -1;
     }
 
     clearChartsData();
@@ -122,6 +131,8 @@ public class ChartsController implements Initializable {
     bcExchanges.getData().add(excHeapSort);
 
     executor.shutdown();
+
+    return 0;
   }
 
   private void clearChartsData() {
@@ -204,5 +215,37 @@ public class ChartsController implements Initializable {
 
   public void init(MainController main) {
     mainController = main;
+  }
+
+  private void exportToPng() {
+    FileChooser fileChooser = new FileChooser();
+
+    //Set extension filter
+    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+    fileChooser.getExtensionFilters().add(extFilter);
+
+    //Show save file dialog
+    File file = fileChooser.showSaveDialog(mainController.getStage());
+    Chart activeChart;
+    switch (chartsTab.getSelectionModel().getSelectedIndex()) {
+      case 1:
+        activeChart = bcComparisons;
+        break;
+      case 2:
+        activeChart = bcExchanges;
+        break;
+      case 0:
+      default:
+        activeChart = bcTime;
+    }
+
+    if (file != null) {
+      WritableImage image = activeChart.snapshot(new SnapshotParameters(), null);
+      try {
+        ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }

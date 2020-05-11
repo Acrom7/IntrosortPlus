@@ -1,5 +1,6 @@
 package sample.controller;
 
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ public class FilesController implements Initializable {
   @FXML
   public TableColumn<MyFile, String> fileName;
   @FXML
-  public TableColumn<MyFile, CheckBox> select;
+  public TableColumn<MyFile, JFXCheckBox> select;
   @FXML
   public TableView<MyFile> tvFiles;
 
@@ -61,7 +62,6 @@ public class FilesController implements Initializable {
     fileChooser.setInitialDirectory(new File("resources/seq"));
     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SEQ files (*.seq)", "*.seq"));
     List<File> files = fileChooser.showOpenMultipleDialog(((Node) actionEvent.getSource()).getScene().getWindow());
-    System.out.println(1111);
     if (files != null) {
       for (File file : files) {
         addFile(file);
@@ -88,8 +88,10 @@ public class FilesController implements Initializable {
 
   // Сортировка выбранных файлов
   public void sortFiles(ActionEvent actionEvent) {
-    mainController.changeTab(2);
-    mainController.sortFiles();
+    int res = mainController.sortFiles();
+    if (res == 0) {
+      mainController.changeTab(2);
+    }
   }
 
   public void init(MainController main) {

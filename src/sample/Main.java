@@ -12,8 +12,9 @@ import javafx.stage.StageStyle;
 
 
 public class Main extends Application {
-  private double xOffset = 0;
-  private double yOffset = 0;
+  private final double xOffset = 0;
+  private final double yOffset = 0;
+  private Stage stage;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -24,6 +25,7 @@ public class Main extends Application {
     primaryStage.setMinWidth(root.minWidth(-1));
     primaryStage.initStyle(StageStyle.TRANSPARENT);
 
+    this.stage = primaryStage;
     // Возможность передвигать окно
     Scene scene = new Scene(new formDecorator(primaryStage, root));
     scene.setFill(null);
@@ -37,10 +39,10 @@ public class Main extends Application {
     primaryStage.show();
   }
 
-  public class formDecorator extends TabPane {
+  public static class formDecorator extends TabPane {
     private double xOffset = 0;
     private double yOffset = 0;
-    private Stage primaryStage;
+    private final Stage primaryStage;
 
     public formDecorator(Stage stage, Node node) {
       super();
@@ -55,8 +57,8 @@ public class Main extends Application {
         yOffset = event.getSceneY();
       });
       this.setOnMouseDragged((MouseEvent event) -> {
-        primaryStage.setX(event.getScreenX() - xOffset);
-        primaryStage.setY(event.getScreenY() - yOffset);
+        primaryStage.setX(event.getScreenX() - this.xOffset);
+        primaryStage.setY(event.getScreenY() - this.yOffset);
       });
 
     }
