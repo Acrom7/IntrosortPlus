@@ -1,10 +1,18 @@
 package sample.controller;
 
+import com.jfoenix.controls.*;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import sample.MyFile;
 
 import java.io.File;
@@ -15,11 +23,14 @@ public class MainController implements Initializable {
   public AnchorPane generate;
   public AnchorPane files;
   public AnchorPane charts;
+  public JFXButton closeButton;
+  public JFXButton btnMin;
 
   //Главное окно - TabPane
   @FXML
   private TabPane tpMainWindows;
 
+  // Контроллер вкладок
   @FXML
   public GenerateController generateController;
   @FXML
@@ -48,5 +59,19 @@ public class MainController implements Initializable {
 
   public void changeTab(int tabNumber) {
     tpMainWindows.getSelectionModel().select(tabNumber);
+  }
+
+  public void closeButtonAction(ActionEvent actionEvent) {
+    Stage stage = (Stage) closeButton.getScene().getWindow();
+    stage.close();
+  }
+
+  public void handleMinAction(ActionEvent actionEvent) {
+    Stage stage = (Stage) btnMin.getScene().getWindow();
+    stage.setIconified(true);
+  }
+
+  public void fn(ActionEvent actionEvent) {
+
   }
 }

@@ -38,12 +38,7 @@ public class FilesController implements Initializable {
 
   }
 
-  /**
-   * Добавляет file в массив сортируемых файлов
-   * и обновляет данные в таблице
-   *
-   * @param file:File
-   */
+  // Добавляет file в список сортируемых файлов
   public void addFile(File file) {
     for (MyFile myFile : myFiles) {
       if (myFile.getFile().toString().equals(file.toString())) {
@@ -59,14 +54,14 @@ public class FilesController implements Initializable {
     select.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
   }
 
-  //Добавление файлов для сортировки
-  public void addFiles(ActionEvent actionEvent) {
+  // Модальное окно для выбора файлов в системеу
+  public void addFilesWindowsModal(ActionEvent actionEvent) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Files");
     fileChooser.setInitialDirectory(new File("resources/seq"));
     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SEQ files (*.seq)", "*.seq"));
     List<File> files = fileChooser.showOpenMultipleDialog(((Node) actionEvent.getSource()).getScene().getWindow());
-
+    System.out.println(1111);
     if (files != null) {
       for (File file : files) {
         addFile(file);
@@ -74,7 +69,7 @@ public class FilesController implements Initializable {
     }
   }
 
-  //Удаление отмеченых файлов из таблицы
+  // Удаление отмеченых файлов из таблицы
   public void deleteFiles() {
     for (int i = 0; i < myFiles.size(); ++i) {
       if (myFiles.get(i).getCheckBox().isSelected()) {
@@ -91,6 +86,7 @@ public class FilesController implements Initializable {
     }
   }
 
+  // Сортировка выбранных файлов
   public void sortFiles(ActionEvent actionEvent) {
     mainController.changeTab(2);
     mainController.sortFiles();

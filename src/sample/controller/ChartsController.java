@@ -1,13 +1,20 @@
 package sample.controller;
 
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXRippler;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import ru.colddegree.sort.HeapSorter;
@@ -26,6 +33,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ChartsController implements Initializable {
+  public JFXHamburger show;
+  public AnchorPane anchorPane;
   private MainController mainController;
   //Графики
   @FXML
@@ -34,15 +43,32 @@ public class ChartsController implements Initializable {
   public BarChart<String, Long> bcComparisons;
   @FXML
   public BarChart<String, Long> bcExchanges;
-  public Button btnStopSort;
+
   public Text txtProgressBar;
 
   private ExecutorService executor = Executors.newSingleThreadExecutor();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    btnStopSort.setTooltip(new Tooltip("Прекращает выполнение сортировки\n"));
-    btnStopSort.getTooltip().setShowDelay(new Duration(100));
+    show.setPadding(new Insets(10, 5, 10, 5));
+    JFXRippler rippler = new JFXRippler(show, JFXRippler.RipplerMask.CIRCLE, JFXRippler.RipplerPos.FRONT);
+
+    JFXListView<Label> list = new JFXListView<>();
+    Label label = new Label("Сортировка");
+    label.setStyle("-fx-min-width: 160px;");
+    label.setOnMouseClicked(e -> this.sortFiles());
+    list.getItems().add(label);
+
+    Label label2 = new Label("Остановить");
+    label2.setStyle("-fx-min-width: 160px;");
+    label2.setOnMouseClicked(e -> this.stopExecution());
+    list.getItems().add(label2);
+
+    JFXPopup popup = new JFXPopup(list);
+    rippler.setOnMouseClicked(e -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
+    AnchorPane.setRightAnchor(rippler, 5.0);
+    AnchorPane.setTopAnchor(rippler, -2.0);
+    anchorPane.getChildren().add(rippler);
   }
 
   public void sortFiles() {
@@ -53,9 +79,7 @@ public class ChartsController implements Initializable {
       return;
     }
 
-    bcTime.getData().clear();
-    bcExchanges.getData().clear();
-    bcComparisons.getData().clear();
+    clearChartsData();
 
     XYChart.Series<String, Double> timeHeapSort = new XYChart.Series<>();
     timeHeapSort.setName("HeapSort");
@@ -71,7 +95,6 @@ public class ChartsController implements Initializable {
     excHeapSort.setName("HeapSort");
     XYChart.Series<String, Long> excIntroSort = new XYChart.Series<>();
     excIntroSort.setName("IntroSort");
-
 
     executor = Executors.newSingleThreadExecutor();
 
@@ -99,6 +122,12 @@ public class ChartsController implements Initializable {
     bcExchanges.getData().add(excHeapSort);
 
     executor.shutdown();
+  }
+
+  private void clearChartsData() {
+    bcTime.getData().clear();
+    bcExchanges.getData().clear();
+    bcComparisons.getData().clear();
   }
 
   private void sortAndShow(MyFile file, Sorter introSorter, XYChart.Series<String, Double> timeSort, XYChart.Series<String, Long> cmpSort, XYChart.Series<String, Long> excSort) {

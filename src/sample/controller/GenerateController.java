@@ -20,7 +20,6 @@ import java.util.function.UnaryOperator;
 public class GenerateController implements Initializable {
   private MainController mainController;
 
-  //Текстовые поля вкладки "Генерация"
   public TextField txtFirstValueRand;
   public TextField txtLastValueRand;
   public TextField txtFirstValueAP;
@@ -41,7 +40,6 @@ public class GenerateController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    //Вводить можно только цифры
     setNumbersOnly(txtNumOfElem);
     setNumbersOnly(txtFirstValueAP);
     setNumbersOnly(txtStepAP);

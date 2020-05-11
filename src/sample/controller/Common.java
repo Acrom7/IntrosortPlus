@@ -3,7 +3,7 @@ package sample.controller;
 import javafx.scene.control.Alert;
 
 public class Common {
-
+  // Модальное окно с текстом ошибки
   public static void throwAlertWindow(String message) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Внимание!");

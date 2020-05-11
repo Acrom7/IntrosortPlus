@@ -5,8 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXButton?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.controller.FilesController">
+            fx:controller="sample.controller.FilesController"
+            styleClass="tab-item"
+>
     <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="321.0" prefWidth="608.0"
                 AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0"
                 AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -31,8 +35,8 @@
                     <TableColumn fx:id="select" maxWidth="150.0" minWidth="84.0"
                                  prefWidth="84.0" sortable="false">
                         <graphic>
-                            <CheckBox fx:id="cbAllFiles" mnemonicParsing="false"
-                                      onAction="#chooseAllFiles" selected="true"/>
+                            <JFXCheckBox fx:id="cbAllFiles" mnemonicParsing="false"
+                                         onAction="#chooseAllFiles" selected="true"/>
                         </graphic>
                     </TableColumn>
                     <TableColumn fx:id="fileName" prefWidth="510.0" text="Название файла"/>
@@ -43,12 +47,16 @@
             </TableView>
         </VBox>
     </AnchorPane>
-    <Button mnemonicParsing="false" onAction="#addFiles" prefHeight="25.0"
-            prefWidth="105.0" text="Добавить" AnchorPane.bottomAnchor="40.0"
-            AnchorPane.leftAnchor="100.0"/>
-    <Button mnemonicParsing="false" onAction="#sortFiles" prefHeight="25.0"
-            prefWidth="105.0" text="Сортировка" AnchorPane.bottomAnchor="40.0"
-            AnchorPane.rightAnchor="100.0"/>
-    <Button layoutX="268.0" layoutY="336.0" mnemonicParsing="false" onAction="#deleteFiles"
-            prefHeight="25.0" prefWidth="105.0" text="Удалить всё" AnchorPane.bottomAnchor="40.0"/>
+    <JFXButton mnemonicParsing="false" onAction="#addFilesWindowsModal" prefHeight="25.0"
+               prefWidth="105.0" text="Добавить" AnchorPane.bottomAnchor="20.0"
+               AnchorPane.leftAnchor="100.0" buttonType="RAISED" styleClass="button-raised">
+    </JFXButton>
+    <JFXButton mnemonicParsing="false" onAction="#sortFiles" prefHeight="25.0"
+               prefWidth="105.0" text="Сортировка" AnchorPane.bottomAnchor="20.0"
+               AnchorPane.rightAnchor="100.0" buttonType="RAISED" styleClass="button-raised">
+    </JFXButton>
+    <JFXButton layoutX="258.0" layoutY="336.0" mnemonicParsing="false" onAction="#deleteFiles"
+               prefHeight="25.0" prefWidth="105.0" text="Удалить всё" AnchorPane.bottomAnchor="20.0" buttonType="RAISED"
+               styleClass="button-raised">
+    </JFXButton>
 </AnchorPane>

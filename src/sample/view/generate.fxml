@@ -5,21 +5,28 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.GenerateController">
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.controller.GenerateController"
+            styleClass="tab-item"
+>
     <Text fx:id="txtSuccessAdd" layoutX="324.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0"
           text="Файл успешно добавлен" visible="false" wrappingWidth="148.17578125" AnchorPane.bottomAnchor="45.0"
-          AnchorPane.rightAnchor="163.82421875">
+          AnchorPane.rightAnchor="250.82421875">
         <font>
             <Font size="11.0"/>
         </font>
     </Text>
-    <Button fx:id="btnGenerateFiles" layoutX="268.0" layoutY="333.0" mnemonicParsing="false"
-            onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация"
-            AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="56.0">
+    <JFXButton fx:id="btnGenerateFiles" layoutX="268.0" layoutY="333.0" mnemonicParsing="false"
+               onAction="#generateFiles" prefHeight="25.0" prefWidth="100.0" text="Генерация"
+               AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="56.0"
+               buttonType="RAISED" styleClass="button-raised">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </padding>
-    </Button>
+    </JFXButton>
     <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                 AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="290.0" prefWidth="627.0" AnchorPane.leftAnchor="0.0"
@@ -69,35 +76,35 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </GridPane.margin>
                         </Text>
-                        <TextField fx:id="txtFirstValueRand" promptText="1"
-                                   GridPane.columnIndex="1">
+                        <JFXTextField fx:id="txtFirstValueRand" promptText="1"
+                                      GridPane.columnIndex="1">
                             <GridPane.margin>
                                 <Insets/>
                             </GridPane.margin>
-                        </TextField>
-                        <TextField fx:id="txtLastValueRand" prefHeight="23.0" prefWidth="74.0"
-                                   promptText="10" GridPane.columnIndex="3">
+                        </JFXTextField>
+                        <JFXTextField fx:id="txtLastValueRand" prefHeight="23.0" prefWidth="74.0"
+                                      promptText="10" GridPane.columnIndex="3">
                             <GridPane.margin>
                                 <Insets/>
                             </GridPane.margin>
-                        </TextField>
+                        </JFXTextField>
                     </GridPane>
-                    <RadioButton fx:id="rbRandomSeq" ellipsisString="123" layoutX="14.0"
-                                 layoutY="107.0" mnemonicParsing="false" selected="true"
-                                 text="Рандомная">
+                    <JFXRadioButton fx:id="rbRandomSeq" ellipsisString="123" layoutX="14.0"
+                                    layoutY="107.0" mnemonicParsing="false" selected="true"
+                                    text="Рандомная">
                         <toggleGroup>
                             <ToggleGroup fx:id="kindOfFiles"/>
                         </toggleGroup>
                         <VBox.margin>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                         </VBox.margin>
-                    </RadioButton>
+                    </JFXRadioButton>
                 </Group>
                 <Group layoutX="1.0" layoutY="-51.0">
-                    <RadioButton fx:id="rbAPSeq" layoutX="14.0" layoutY="147.0"
-                                 mnemonicParsing="false" prefHeight="24.0" prefWidth="229.0"
-                                 selected="true" text="Арифметическая прогрессия"
-                                 toggleGroup="$kindOfFiles" wrapText="true"/>
+                    <JFXRadioButton fx:id="rbAPSeq" layoutX="14.0" layoutY="147.0"
+                                    mnemonicParsing="false" prefHeight="24.0" prefWidth="229.0"
+                                    selected="true" text="Арифметическая прогрессия"
+                                    toggleGroup="$kindOfFiles" wrapText="true"/>
                     <GridPane alignment="CENTER" layoutX="15.0" layoutY="171.0" prefHeight="34.0"
                               prefWidth="223.0">
                         <columnConstraints>
@@ -132,25 +139,25 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </GridPane.margin>
                         </Text>
-                        <TextField fx:id="txtFirstValueAP" promptText="1"
-                                   GridPane.columnIndex="1">
+                        <JFXTextField fx:id="txtFirstValueAP" promptText="1"
+                                      GridPane.columnIndex="1">
                             <GridPane.margin>
                                 <Insets/>
                             </GridPane.margin>
-                        </TextField>
-                        <TextField fx:id="txtStepAP" promptText="10" GridPane.columnIndex="3">
+                        </JFXTextField>
+                        <JFXTextField fx:id="txtStepAP" promptText="10" GridPane.columnIndex="3">
                             <GridPane.margin>
                                 <Insets/>
                             </GridPane.margin>
-                        </TextField>
+                        </JFXTextField>
                     </GridPane>
                 </Group>
-                <RadioButton fx:id="rbKillerSeq" layoutX="16.0" layoutY="167.0" mnemonicParsing="false"
-                             text="Последовательность &quot;УБИЦА&quot;" toggleGroup="$kindOfFiles">
+                <JFXRadioButton fx:id="rbKillerSeq" layoutX="16.0" layoutY="167.0" mnemonicParsing="false"
+                                text="Последовательность &quot;УБИЦА&quot;" toggleGroup="$kindOfFiles">
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </VBox.margin>
-                </RadioButton>
+                </JFXRadioButton>
             </Group>
             <AnchorPane layoutX="296.0" layoutY="85.0" prefHeight="50.0" prefWidth="331.0" AnchorPane.rightAnchor="0.0">
                 <Text layoutX="15.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0"
@@ -162,7 +169,7 @@
                         <Insets bottom="10.0" top="52.0"/>
                     </VBox.margin>
                 </Text>
-                <TextField fx:id="txtNumOfElem" layoutX="80.0" layoutY="44.0" promptText="100"/>
+                <JFXTextField fx:id="txtNumOfElem" layoutX="80.0" layoutY="44.0" promptText="100"/>
             </AnchorPane>
         </AnchorPane>
     </AnchorPane>
