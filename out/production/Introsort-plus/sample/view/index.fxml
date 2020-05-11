@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainController">
+    <HBox fx:id="hbox" alignment="BASELINE_RIGHT" styleClass="titleBar">
+      <ImageView fitHeight="25.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" smooth="false" translateY="5.0">
+         <image>
+            <Image url="@../resources/favicon.png" />
+         </image>
+         <HBox.margin>
+            <Insets right="10.0" />
+         </HBox.margin>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <Label text="Inrosort-plus">
+         <HBox.margin>
+            <Insets right="420.0" />
+         </HBox.margin>
+      </Label>
+        <JFXButton fx:id="btnMin" onAction="#handleMinAction" styleClass="button" text="_">
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </JFXButton>
+      <JFXButton onMouseClicked="#maxWindow" text="Max">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+        <JFXButton fx:id="closeButton" cancelButton="true" onAction="#closeButtonAction" styleClass="button" text="×">
+            <font>
+                <Font size="18.0" />
+            </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </JFXButton>
+    </HBox>
+    <JFXTabPane fx:id="tpMainWindows" minHeight="400.0" minWidth="636.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="400.0" tabMaxWidth="636.0">
+        <tabs>
+            <Tab text="Генерация">
+                <fx:include fx:id="generate" source="generate.fxml" />
+            </Tab>
+            <Tab text="Файлы">
+                <fx:include fx:id="files" source="files.fxml" />
+            </Tab>
+            <Tab text="Графики">
+                <fx:include fx:id="charts" source="charts.fxml" />
+            </Tab>
+        </tabs>
+    </JFXTabPane>
+</VBox>

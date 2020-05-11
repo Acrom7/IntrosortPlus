@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controller.ChartsController"
+            styleClass="tab-item"
+            fx:id="anchorPane"
+>
+    <JFXTabPane layoutX="1.0" prefHeight="367.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0" fx:id="chartsTab">
+        <Tab text="Время работы">
+            <AnchorPane>
+                <BarChart fx:id="bcTime" animated="false" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Миллисекунды" side="LEFT"/>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Количество сравнений">
+            <AnchorPane>
+                <BarChart fx:id="bcComparisons" animated="false"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT"/>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Количество обменов">
+            <AnchorPane>
+                <BarChart fx:id="bcExchanges" animated="false"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT"/>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+        </Tab>
+    </JFXTabPane>
+    <JFXHamburger fx:id="show"/>
+    <Text fx:id="txtProgressBar" layoutX="450.0" layoutY="25.0" strokeType="OUTSIDE"
+          strokeWidth="0.0" text="В процессе..." textAlignment="CENTER" visible="false"
+          wrappingWidth="99.7294921875" AnchorPane.rightAnchor="69.2705078125"/>
+</AnchorPane>

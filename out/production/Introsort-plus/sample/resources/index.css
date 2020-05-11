@@ -1,0 +1,73 @@
+.root {
+    -fx-font-family: ProximaNova, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.titleBar {
+    -fx-background-color: #00bcd4;
+}
+
+.jfx-text-field {
+    -fx-prompt-text-fill: rgba(152, 152, 152, 0.7);
+}
+
+.jfx-text-field:focused {
+    -fx-prompt-text-fill: rgba(152, 152, 152, 0.35);
+}
+
+.button-raised {
+    -fx-background-color: #1e87f0;
+    -fx-color: #fff;
+    -fx-border-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-max-width: 120px;
+}
+
+.tab-item {
+    -fx-background-color: white;
+}
+
+.jfx-check-box {
+    -jfx-checked-color: #1e87f0;
+}
+
+.jfx-hamburger StackPane {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 4px;
+    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-background-radius: 5px;
+    -fx-padding-bottom: 5px;
+}
+
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color: rgba(30, 135, 240, 0.41);
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8f8f8;
+}
+
+.table-row-cell:even {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: whitesmoke;
+    -fx-text-background-color: #6622CC;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #28a3f4;
+}
